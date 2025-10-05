@@ -1,11 +1,11 @@
 import './Header.css'
 import logo from '../../assets/logo.png'
 
-function header() {
+function header() { 
 
     return (
         <div className="container my-3">
-            <img src={logo} className='site-logo' />
+            <img src={logo} className='site-logo' alt='site-logo' />
             {/* <hr className="header-hr"></hr> */}
         </div>
     )

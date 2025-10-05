@@ -21,13 +21,13 @@ const [data, setData] = useState([]);
                 console.log("NEWWTITLE: " + article.title.substring(0, 50))
 
     }
-  })
+  }, [article.title])
 
 
 
 return (
         <tr>
-            <td><img className="img-fluid" src={article.site_icon_url} /></td>
+            <td><img className="img-fluid" alt='site-icon' src={article.site_icon_url} /></td>
             <td className="news-source">
                 <a href={article.website}>
                     <b>{article.source}:</b>

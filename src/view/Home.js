@@ -63,7 +63,7 @@ import './Home.css'
             </table>   
               
             
-            {page == 'finance' && <div className="container-fluid"> <TradingViewWidget /></div>  }
+            {page === 'finance' && <div className="container-fluid"> <TradingViewWidget /></div>  }
 
           </div>
         )

@@ -149,12 +149,12 @@ function TradingViewWidget() {
       container.current.appendChild(script);
 
       
-     return () => {
-          // Cleanup: remove the script when the component unmounts or re-renders
-          if (container.current && container.current.contains(script)) {
-            container.current.removeChild(script);
-          }
-        };
+    //  return () => {
+    //       // Cleanup: remove the script when the component unmounts or re-renders
+    //       // if (container.current && container.current.contains(script)) {
+    //         // container.current.removeChild(script);
+    //       // }
+    //     };
     },
     []
   );
@@ -162,7 +162,7 @@ function TradingViewWidget() {
   return (
     <div className="tradingview-widget-container" ref={container}>
       <div className="tradingview-widget-container__widget"></div>
-      <div className="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span className="blue-text">Market data by TradingView</span></a></div>
+      <div className="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow"><span className="blue-text">Market data by TradingView</span></a></div>
     </div>
   );
 }
