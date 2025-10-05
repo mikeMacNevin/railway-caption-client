@@ -51,6 +51,7 @@ import './Home.css'
           }
       }, [page]);
 
+      if (data.length > 2) { 
         return (
           <div className="container home-container d-flex flex-column  pt-3">
             {/* This was the page title.  I removed for now.  Maybe bring back and restyle */}
@@ -67,6 +68,7 @@ import './Home.css'
 
           </div>
         )
+      }
 
     
 
