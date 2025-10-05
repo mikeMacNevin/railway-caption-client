@@ -1,0 +1,22 @@
+.table {
+    max-width: 700px;
+}
+
+div.container {
+    max-width: 600px;
+}
+
+div.home-container {
+        border-top: 1px solid rgb(108, 117, 125);
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+
+}
+
+div.container-fluid {
+    border: 1px solid lightgray;
+}
+
+h2 {
+    text-decoration: underline;
+}

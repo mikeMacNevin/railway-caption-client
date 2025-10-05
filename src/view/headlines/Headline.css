@@ -1,0 +1,24 @@
+
+.img-fluid {
+    width: 3.5rem;
+}
+
+tr > td {
+    vertical-align: middle;
+    text-align: left;
+    padding: 0.35rem !important; /* 0.5rem is Bootstrap 5 default - Mike changed this*/
+        /* font-family: "Old Standard TT"; */
+}
+
+.news-source {
+    /* text-decoration: underline; */
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: underline;
+}
