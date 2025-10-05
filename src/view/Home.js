@@ -16,19 +16,20 @@ import './Home.css'
 
   const { page } = useParams();
   const [data, setData] = useState([]); 
-  const [currentPage, setCurrentPage] = useState([]); 
+  // const [currentPage, setCurrentPage] = useState([]); 
+
 
   //for both Railway url and fallback local
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'; 
 
+    
     useEffect(() => {
           //Home Page hack that should probably be redone one day
           if (page === undefined) {
                 axios
-              .get(`${API_URL}/api/articles/home`)
+              .get(`${process.env.REACT_APP_API_URL}/api/articles/home`)
               .then((response) => {
                   setData(response.data.articles);
-                  setCurrentPage("")
+                  // setCurrentPage("")
 
               })
               .catch((err) => {
@@ -38,10 +39,10 @@ import './Home.css'
           //any page other than Home Page
           else {
               axios
-              .get(`${API_URL}/api/articles/${page}`)
+              .get(`${process.env.REACT_APP_API_URL}/api/articles/${page}`)
               .then((response) => {
                   setData(response.data.articles);
-                  setCurrentPage(page.toUpperCase())
+                  // setCurrentPage(page.toUpperCase())
                   console.log("page: " + { page })
               })
               .catch((err) => {
