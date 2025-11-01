@@ -21,21 +21,24 @@ import './Home.css'
 
   //for both Railway url and fallback local
 
-    // var API_URL = 'http://localhost:5000';
 
-    //    if (process.env.REACT_APP_API_URL) {
-    //         API_URL = process.enc.REACT_APP_API_URL
-    //       } 
-
+       
 
     
     useEffect(() => {
-   
+          var API_URL; 
+
+      if (process.env.REACT_APP_API_URL) {
+            API_URL = process.enc.REACT_APP_API_URL
+          } 
+      else {
+        API_URL = 'http://localhost:5000';
+      }
 
           //Home Page hack that should probably be redone one day
           if (page === undefined) {
                 axios
-              .get(`http://localhost:5000/api/articles/home`)
+              .get(`${API_URL}/api/articles/home`)
               .then((response) => {
 
                   setData(response.data.articles);
@@ -48,7 +51,7 @@ import './Home.css'
           //any page other than Home Page
           else {
               axios
-              .get(`http://localhost:5000/api/articles/${page}`)
+              .get(`${API_URL}/api/articles/${page}`)
               .then((response) => {
                   setData(response.data.articles);
                   // setCurrentPage(page.toUpperCase())
