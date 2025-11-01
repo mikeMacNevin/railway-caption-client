@@ -21,16 +21,25 @@ import './Home.css'
 
   //for both Railway url and fallback local
 
+    // var API_URL = 'http://localhost:5000';
+
+    //    if (process.env.REACT_APP_API_URL) {
+    //         API_URL = process.enc.REACT_APP_API_URL
+    //       } 
+
+
     
     useEffect(() => {
+   
+
           //Home Page hack that should probably be redone one day
           if (page === undefined) {
                 axios
-              .get(`${process.env.REACT_APP_API_URL}/api/articles/home`)
+              .get(`http://localhost:5000/api/articles/home`)
               .then((response) => {
+
                   setData(response.data.articles);
                   // setCurrentPage("")
-
               })
               .catch((err) => {
                 console.log("fetch error: " + err)
@@ -39,7 +48,7 @@ import './Home.css'
           //any page other than Home Page
           else {
               axios
-              .get(`${process.env.REACT_APP_API_URL}/api/articles/${page}`)
+              .get(`http://localhost:5000/api/articles/${page}`)
               .then((response) => {
                   setData(response.data.articles);
                   // setCurrentPage(page.toUpperCase())
@@ -57,14 +66,19 @@ import './Home.css'
             {/* This was the page title.  I removed for now.  Maybe bring back and restyle */}
             {/* <h2 className="text-start">{currentPage}</h2> */}
             
+            {page === 'finance' && <div className="container-fluid"> <TradingViewWidget /> </div>  }
+
+
             <table className="table ">
+
+
+            
               <tbody>
                 {data.map((article) => (<Headline key={article.source} article={article} ></Headline>))}    
               </tbody> 
             </table>   
               
             
-            {page === 'finance' && <div className="container-fluid"> <TradingViewWidget /></div>  }
 
           </div>
         )
