@@ -1,24 +1,45 @@
 
 .img-fluid {
-    width: 3.5rem;
+    width: 3rem;
+}
+@media screen and (min-width: 768px) {
+    .img-fluid {
+    width: 2.5rem;
+}
+
 }
 
 tr > td {
     vertical-align: middle;
     text-align: left;
+    height:2.8em;
     padding: 0.35rem !important; /* 0.5rem is Bootstrap 5 default - Mike changed this*/
         /* font-family: "Old Standard TT"; */
 }
 
-.news-source {
-    /* text-decoration: underline; */
+.article-website {
+    text-align: justify;
+    font-weight: bold;
+
 }
 
 a {
     text-decoration: none;
     color: black;
+
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+.article-title > a {
+    font-style: italic;
+
+      display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
