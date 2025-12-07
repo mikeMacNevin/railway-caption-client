@@ -2,26 +2,26 @@
 
 import './Headline.css';
 
-import { useEffect } from 'react';
-import { useState } from 'react';
+// import { useEffect } from 'react';
+// import { useState } from 'react';
 
 function Headline ( {article}) {
 
 
 
-const [data, setData] = useState([]); 
+// const [data, setData] = useState([]); 
 
- useEffect(() => {
-    if (article.title.length > 100 ) {
-        setData(article.title.substring(0, 97) + "...");
-        console.log("NEWWTITLE: " + article.title.substring(0, 97) + '...')
-    }  
-    else {
-        setData(article.title)
-                console.log("NEWWTITLE: " + article.title.substring(0, 50))
+//  useEffect(() => {
+//     if (article.title.length > 100 ) {
+//         setData(article.title.substring(0, 97) + "...");
+//         console.log("NEWWTITLE: " + article.title.substring(0, 97) + '...')
+//     }  
+//     else {
+//         setData(article.title)
+//                 console.log("NEWWTITLE: " + article.title.substring(0, 50))
 
-    }
-  }, [article.title])
+//     }
+//   }, [article.title])
 
 
 
