@@ -7,6 +7,9 @@ import RouterView from './view/routes/RouterView';
 import Navbar from './view/routes/Navbar';
 import Header from './view/header/Header';
 
+
+import NewNavbar from './view/routes/NewNavbar'
+
 function App() {
 
       return (
@@ -14,8 +17,10 @@ function App() {
           <BrowserRouter>
               <div className="App"> 
                 <Header />
-                <Navbar />
+                {/* <Navbar /> */}
                 <RouterView />
+
+                <NewNavbar />
               </div>        
           </BrowserRouter>      
 
