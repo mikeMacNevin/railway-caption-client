@@ -1,69 +1,50 @@
-import { NavLink } from 'react-router-dom'; // Assuming you're using react-router-dom for routing
-
-// Import icons from react-icons (install via: npm install react-icons)
-// Or replace with your own icons/SVGs
+import { NavLink } from 'react-router-dom';
 import { 
   FaNewspaper, 
   FaBuildingColumns, 
   FaChartLine,
   FaGlobe, 
-  FaBasketball, 
-  FaRegStar
-
+  FaFootball,  
+  FaRegStar 
 } from 'react-icons/fa6';
 
 const BottomNavigation = () => {
   const navItems = [
-    { to: '/', label: 'FrontPage', icon: <FaNewspaper size={24} /> },
-    { to: '/politics', label: 'Politics', icon: <FaBuildingColumns size={24} /> },
-    { to: '/finance', label: 'Finance', icon: <FaChartLine size={24} /> },
-    { to: '/world', label: 'World', icon: <FaGlobe size={24} /> },
-    { to: '/sports', label: 'Sports', icon: <FaBasketball size={24} /> },
-    { to: '/celebs', label: 'Celebs', icon: <FaRegStar size={24} /> },
+    { to: '/', label: 'FrontPage', icon: <FaNewspaper size={22} /> },
+    { to: '/politics', label: 'Politics', icon: <FaBuildingColumns size={22} /> },
+    { to: '/finance', label: 'Finance', icon: <FaChartLine size={22} /> },
+    { to: '/world', label: 'World', icon: <FaGlobe size={22} /> },
+    { to: '/sports', label: 'Sports', icon: <FaFootball  size={22} /> },
+    { to: '/celebs', label: 'Celebs', icon: <FaRegStar size={22} /> },
   ];
 
   return (
-    <div className="fixed-bottom bg-white border-top shadow-sm" style={{ height: '70px' }}>
-      <div 
-        className="d-flex overflow-x-auto hide-scrollbar"
-        style={{
-          scrollSnapType: 'x mandatory',
-          WebkitOverflowScrolling: 'touch', // Smooth scrolling on iOS
-        }}
-      >
+    <div 
+      className="fixed-bottom bg-white border-top shadow-sm"
+      style={{ height: '70px' }}
+    >
+      <div className="d-flex h-100">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
-            className={({ isActive }) => 
-              `d-flex flex-column flex-grow-1 justify-content-center align-items-center text-decoration-none px-3 py-2 flex-shrink-0 ${
+            className={({ isActive }) =>
+              `flex-fill d-flex flex-column justify-content-center align-items-center text-decoration-none ${
                 isActive ? 'text-primary' : 'text-dark'
               }`
             }
-            style={{
-              minWidth: '80px', // Ensures consistent width per item
-              scrollSnapAlign: 'center', // Optional: snaps to center for nicer feel
-            }}
-            end // For exact match on root '/'
+            style={{ minWidth: 0 }} // Allows flex items to shrink properly
+            end
           >
             <div className="mb-1">
               {item.icon}
             </div>
-            <small style={{ fontSize: '0.7rem' }}>{item.label}</small>
+            <small style={{ fontSize: '0.65rem', lineHeight: 1 }}>
+              {item.label}
+            </small>
           </NavLink>
         ))}
       </div>
-
-      {/* Optional: Hide scrollbar visually */}
-      <style jsx>{`
-        .hide-scrollbar {
-          -ms-overflow-style: none; /* IE and Edge */
-          scrollbar-width: none; /* Firefox */
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none; /* Chrome, Safari, Opera */
-        }
-      `}</style>
     </div>
   );
 };
