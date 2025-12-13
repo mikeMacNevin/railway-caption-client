@@ -4,7 +4,7 @@ import './App.css';
 import { BrowserRouter } from "react-router-dom";
 
 import RouterView from './view/routes/RouterView';
-import Navbar from './view/routes/Navbar';
+// import Navbar from './view/routes/Navbar';
 import Header from './view/header/Header';
 
 
