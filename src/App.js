@@ -4,7 +4,7 @@ import './App.css';
 import { BrowserRouter } from "react-router-dom";
 
 import RouterView from './view/routes/RouterView';
-// import Navbar from './view/routes/Navbar';
+import Navbar from './view/routes/Navbar';
 import Header from './view/header/Header';
 
 
@@ -17,15 +17,18 @@ function App() {
           <BrowserRouter>
               <div className="App"> 
                 <Header />
-                {/* <Navbar /> */}
+                <div className="d-none d-md-block"> 
+                  <Navbar />
+                </div>
                 <RouterView />
-
-                <NewNavbar />
+                <div className="d-block d-md-none"> 
+                  <NewNavbar />
+                </div>
               </div>        
           </BrowserRouter>      
 
      )
- 
+
 }
 
 export default App;
