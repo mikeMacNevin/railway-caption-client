@@ -1,6 +1,7 @@
 
 .img-fluid {
-    width: 3rem;
+    width: 4rem;
+    margin-top:-3px;
 }
 @media screen and (min-width: 768px) {
     .img-fluid {
@@ -12,13 +13,12 @@
 tr > td {
     vertical-align: middle;
     text-align: left;
-    height:2.8em;
+    height:2.8rem;
     padding: 0.35rem !important; /* 0.5rem is Bootstrap 5 default - Mike changed this*/
         /* font-family: "Old Standard TT"; */
 }
 
 .article-website {
-    text-align: justify;
     font-weight: bold;
 
 }
@@ -34,9 +34,8 @@ a:hover {
 }
 
 .article-title > a {
-    font-style: italic;
-
-      display: -webkit-box;
+  color: #323ca8; 
+  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;

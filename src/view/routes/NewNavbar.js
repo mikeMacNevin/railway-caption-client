@@ -5,7 +5,8 @@ import {
   FaChartLine,
   FaGlobe, 
   FaFootball,  
-  FaRegStar 
+  FaRegStar, 
+  FaLaptopCode
 } from 'react-icons/fa6';
 
 const BottomNavigation = () => {
@@ -15,7 +16,9 @@ const BottomNavigation = () => {
     { to: '/finance', label: 'Finance', icon: <FaChartLine size={24} /> },
     { to: '/world', label: 'World', icon: <FaGlobe size={24} /> },
     { to: '/sports', label: 'Sports', icon: <FaFootball  size={24} /> },
-    { to: '/celebs', label: 'Celebs', icon: <FaRegStar size={24} /> },
+    { to: '/tech', label: 'Tech', icon: <FaLaptopCode size={24} /> },
+    { to: '/celebs', label: 'Celebs', icon: <FaRegStar size={24} /> }
+
   ];
 
   return (

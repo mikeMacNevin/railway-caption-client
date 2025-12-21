@@ -1,4 +1,4 @@
-import TradingViewWidget from "../TradingViewWidget";
+import TradingViewWidget from "./TradingViewWidget";
 import Headline from "../Headline";
 
 import { useState } from 'react';

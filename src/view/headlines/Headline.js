@@ -27,13 +27,13 @@ function Headline ( {article}) {
 
 return (
         <tr>
-            <td><img className="img-fluid" alt='site-icon' src={article.site_icon_url} /></td>
+            <td className="px-0"><img className="img-fluid" alt='site-icon' src={article.site_icon_url} /></td>
             <td className="news-source">
                 <a className="article-website" href={article.website}>
                     {article.source}
                 </a>
             </td>
-            <td className="article-title">
+            <td className="article-title ">
                 <a className="link-opacity-50-hover" href={article.url}>
                     {article.title}
                 </a>
