@@ -8,6 +8,8 @@ div.container {
 
 .home-container {
     padding-bottom: 65px; /* Still clears the bottom 80px due to margin*/
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 div.container-fluid {

@@ -1,6 +1,8 @@
 .img-fluid {
     width: 4rem;
     margin-top:-3px;
+    min-width: 14px;
+    min-height:14px;
 }
     @media screen and (min-width: 768px) {
         .img-fluid {
