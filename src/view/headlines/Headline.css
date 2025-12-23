@@ -1,26 +1,29 @@
-
 .img-fluid {
     width: 4rem;
     margin-top:-3px;
 }
-@media screen and (min-width: 768px) {
-    .img-fluid {
-    width: 2.5rem;
-}
-
+    @media screen and (min-width: 768px) {
+        .img-fluid {
+        width: 2.5rem;
+    }
 }
 
 tr > td {
     vertical-align: middle;
     text-align: left;
     height:2.8rem;
-    padding: 0.35rem !important; /* 0.5rem is Bootstrap 5 default - Mike changed this*/
-        /* font-family: "Old Standard TT"; */
+
+}
+
+tr > .news-source {
+    padding-top:0px;
+    padding-bottom: 0px;
+    line-height: 16px;
 }
 
 .article-website {
-    font-weight: bold;
-
+    font-family:serif;
+    font-size: 1.2rem;
 }
 
 a {
@@ -33,6 +36,8 @@ a:hover {
     text-decoration: underline;
 }
 
+
+/* some hacky shit from the internet to make the lines all double and same height - requires the 2.8rem up on tr > td as well*/
 .article-title > a {
   color: #323ca8; 
   display: -webkit-box;
@@ -41,4 +46,6 @@ a:hover {
   line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  font-weight: 600;
 }

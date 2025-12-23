@@ -1,11 +1,12 @@
 // TradingViewWidget.jsx
-import React, { useEffect, useRef, memo } from 'react';
+import React, { useEffect, useRef, memo} from 'react';
 
 function TradingViewWidget() {
   const container = useRef();
 
   useEffect(
     () => {
+
       const script = document.createElement("script");
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
       script.type = "text/javascript";
@@ -148,7 +149,6 @@ function TradingViewWidget() {
         }`;
       container.current.appendChild(script);
 
-      
     //  return () => {
     //       // Cleanup: remove the script when the component unmounts or re-renders
     //       // if (container.current && container.current.contains(script)) {

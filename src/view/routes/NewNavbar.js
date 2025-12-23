@@ -18,7 +18,6 @@ const BottomNavigation = () => {
     { to: '/sports', label: 'Sports', icon: <FaFootball  size={24} /> },
     { to: '/tech', label: 'Tech', icon: <FaLaptopCode size={24} /> },
     { to: '/celebs', label: 'Celebs', icon: <FaRegStar size={24} /> }
-
   ];
 
   return (

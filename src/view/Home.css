@@ -6,6 +6,9 @@ div.container {
     max-width: 600px;
 }
 
+.home-container {
+    padding-bottom: 65px; /* Still clears the bottom 80px due to margin*/
+}
 
 div.container-fluid {
     border: 1px solid lightgray;
@@ -13,4 +16,5 @@ div.container-fluid {
 
 h2 {
     text-decoration: underline;
+    font-family: serif;
 }
