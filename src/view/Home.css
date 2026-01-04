@@ -1,5 +1,4 @@
 .table {
-    max-width: 700px;
 }
 
 div.container {
@@ -10,10 +9,6 @@ div.container {
     padding-bottom: 65px; /* Still clears the bottom 80px due to margin*/
     padding-left: 6px;
     padding-right: 6px;
-}
-
-div.container-fluid {
-    border: 1px solid lightgray;
 }
 
 h2 {

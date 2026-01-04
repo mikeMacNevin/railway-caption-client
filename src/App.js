@@ -7,10 +7,10 @@ import RouterView from './view/routes/RouterView';
 import Navbar from './view/routes/Navbar';
 import Header from './view/header/Header';
 
-
 import NewNavbar from './view/routes/NewNavbar'
-
+import { useEffect } from 'react';
 function App() {
+
 
       return (
 
@@ -28,7 +28,7 @@ function App() {
           </BrowserRouter>      
 
      )
-
+    
 }
 
 export default App;

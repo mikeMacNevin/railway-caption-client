@@ -142,30 +142,19 @@ function TradingViewWidget() {
             }
           ],
           "support_host": "https://www.tradingview.com",
-          "width": "95%",
+          "width": "auto",
           "height": "500",
           "showSymbolLogo": true,
           "showChart": false
         }`;
       container.current.appendChild(script);
-
-    //  return () => {
-    //       // Cleanup: remove the script when the component unmounts or re-renders
-    //       // if (container.current && container.current.contains(script)) {
-    //         // container.current.removeChild(script);
-    //       // }
-    //     };
-    },
-    []
-  );
+    },[]);
 
   return (
-    <div className="container">
       <div className="tradingview-widget-container" ref={container}>
         <div className="tradingview-widget-container__widget"></div>
         <div className="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow"><span className="blue-text">Market data by TradingView</span></a></div>
       </div>
-    </div>
   );
 }
 
