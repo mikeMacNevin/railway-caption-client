@@ -9,7 +9,7 @@ import axios from "axios";
 //Mike
 import Headline from "./headlines/Headline";
 import Finance from "./headlines/finance/Finance";
-import Sports from "./headlines/sports/Sports";
+// import Sports from "./headlines/sports/Sports";
 import './Home.css'
 
 function Home () {

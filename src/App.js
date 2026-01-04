@@ -8,7 +8,6 @@ import Navbar from './view/routes/Navbar';
 import Header from './view/header/Header';
 
 import NewNavbar from './view/routes/NewNavbar'
-import { useEffect } from 'react';
 function App() {
 
 

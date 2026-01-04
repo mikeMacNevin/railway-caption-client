@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 import Headline from "../Headline";
 import Scores from "./Scores/Scores";
