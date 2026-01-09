@@ -6,8 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import RouterView from './view/routes/RouterView';
 import Navbar from './view/routes/Navbar';
 import Header from './view/header/Header';
-
-import NewNavbar from './view/routes/NewNavbar'
+import BottomNavbar from './view/routes/BottomNavbar.js'
 function App() {
 
 
@@ -21,7 +20,7 @@ function App() {
                 </div>
                 <RouterView />
                 <div className="d-block d-md-none"> 
-                  <NewNavbar />
+                  <BottomNavbar />
                 </div>
               </div>        
           </BrowserRouter>      

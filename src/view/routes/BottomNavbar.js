@@ -1,3 +1,5 @@
+import './BottomNavbar.scss'
+
 import { NavLink } from 'react-router-dom';
 import { 
   FaNewspaper, 
@@ -21,7 +23,7 @@ const BottomNavigation = () => {
   ];
 
   return (
-    <div className="fixed-bottom bg-white border-top shadow-sm" style={{ height: '80px'}}>
+    <div className="blue-100 fixed-bottom bg-white border-top shadow-sm" style={{ height: '80px'}}>
       <div className="d-flex justify-content-center h-100">
         {navItems.map((item) => (
           <NavLink key={item.to} to={item.to} className={({ isActive }) =>

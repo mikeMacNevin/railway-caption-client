@@ -1,6 +1,5 @@
 //React
-import { useEffect } from "react"; 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react"; 
 import { useParams } from 'react-router-dom';
 
 //3rd Party
@@ -17,7 +16,13 @@ const { page } = useParams();
 const [data, setData] = useState([]); 
 const [currentPage, setCurrentPage] = useState([]); 
 
+
+
 useEffect(() => {
+//for page scroll to top on nav change
+
+    window.scrollTo(0, 0);
+
 
   var API_URL; 
 
