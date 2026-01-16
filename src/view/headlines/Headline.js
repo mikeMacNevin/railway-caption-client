@@ -1,6 +1,6 @@
 
 
-import './Headline.css';
+import './Headline.scss';
 
 // import { useEffect } from 'react';
 // import { useState } from 'react';
@@ -22,9 +22,6 @@ function Headline ( {article}) {
 
 //     }
 //   }, [article.title])
-
-
-
 return (
         <tr>
             <td className="site-icon"><img className="img-fluid" alt='site-icon' src={article.site_icon_url} /></td>

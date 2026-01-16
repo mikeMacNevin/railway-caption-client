@@ -1,0 +1,28 @@
+// 1. Import functions first (required for color functions to work)
+@import "bootstrap/scss/functions";
+
+// 2. Override variables here (before importing the rest)
+// Option A: Override individual base variables (simplest for core theme colors)
+$primary: #0066cc;    // Your new primary color
+$secondary: #666666;
+$success: #28a745;
+// Add/override others as needed ($danger, $info, etc.)
+
+// Option B: Directly modify the full theme-colors map (more flexible)
+// $theme-colors: (
+//   "primary": #0066cc,
+//   "secondary": #666666,
+//   // Keep or override others
+// );
+
+// Add custom colors (e.g., "brand": #900)
+// $custom-colors: ("brand": #900);
+// $theme-colors: map-merge($theme-colors, $custom-colors);
+
+// Remove colors if needed (e.g., map-remove($theme-colors, "info"));
+
+// 3. Import the rest of Bootstrap
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";  // For dark mode support
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/bootstrap";       // Imports everything else
