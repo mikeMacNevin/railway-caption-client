@@ -1,0 +1,15 @@
+@use '../../styles/_variables.scss';
+
+.header-container {
+    background-color: variables.$primary;
+    color: variables.$light
+}
+h1 {
+    font-size: 2.5rem;
+    font-family: "Old Standard TT", serif;
+}
+
+.site-logo {
+    max-width: 300px;
+}
+

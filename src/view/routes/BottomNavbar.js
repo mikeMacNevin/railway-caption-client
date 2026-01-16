@@ -1,4 +1,5 @@
 import './BottomNavbar.scss'
+    import "../../styles/custom-bootstrap.scss";
 
 import { NavLink } from 'react-router-dom';
 import { 
@@ -23,12 +24,12 @@ const BottomNavigation = () => {
   ];
 
   return (
-    <div className="blue-100 fixed-bottom bg-white border-top shadow-sm" style={{ height: '80px'}}>
+    <div className="fixed-bottom border-top shadow-sm" style={{ height: '80px'}}>
       <div className="d-flex justify-content-center h-100">
         {navItems.map((item) => (
           <NavLink key={item.to} to={item.to} className={({ isActive }) =>
               `flex-fill d-flex flex-column justify-content-center align-items-center text-decoration-none ${
-                isActive ? 'text-primary' : 'text-dark'
+                isActive ? 'text-warning' : 'text-light'
               }`
             }
             style={{ minWidth: 0 }} // Allows flex items to shrink properly

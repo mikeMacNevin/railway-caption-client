@@ -1,29 +1,5 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
+@use "../../styles/_variables.scss";
 
-
-
-.topDiv {
-    background-color: $blue-100;
+.fixed-bottom {
+    background-color: variables.$primary !important;
 }
-
-
-@import "bootstrap/scss/bootstrap";
-
-
-// // custom.scss
-// @import "bootstrap/scss/functions";
-// @import "bootstrap/scss/variables";
-// @import "bootstrap/scss/maps";
-
-// // #0A2239
-// // #53A2BE
-// // #1D84B5
-// // #132E32
-// // #176087
-
-// $primary: #53A2BE  ;
-// $success: #28a745;   
-
-
-// @import "bootstrap/scss/bootstrap";

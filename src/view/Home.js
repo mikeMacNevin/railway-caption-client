@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"; 
 import { useParams } from 'react-router-dom';
 
+
 //3rd Party
 import axios from "axios";
 
@@ -9,7 +10,7 @@ import axios from "axios";
 import Headline from "./headlines/Headline";
 import Finance from "./headlines/finance/Finance";
 // import Sports from "./headlines/sports/Sports";
-import './Home.css'
+import './Home.scss'
 
 function Home () {
 const { page } = useParams();
@@ -75,7 +76,8 @@ useEffect(() => {
       return (
           <div className="container home-container d-flex flex-column  pt-3">
             {/* This was the page title.  I removed for now.  Maybe bring back and restyle */}
-            <h2 className="text-center">{currentPage}</h2>   
+            
+            <h2 className="mb-0">{currentPage ? (currentPage) : ("FRONT PAGE") }</h2>   
             <table className="table ">              
               <tbody>
                 {data.map((article) => (<Headline key={article.source} article={article} ></Headline>))}    
