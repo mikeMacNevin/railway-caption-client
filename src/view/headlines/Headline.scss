@@ -72,12 +72,25 @@ tr {
 
 @media screen and (max-width: 576px) {
     tr {
+        .site-icon {
+            padding-left: 3px !important;
+            padding-right: 3px !important;
+
+        }
+        .article-website {
+            font-size: 0.8rem;
+        }
         .article-title {
             font-size: 0.9rem;
             padding-left: 3px !important;
+            padding-right: 3px !important;
+
         }   
         .news-source {
+            padding-left: 3px !important;
             padding-right: 3px !important;
+
         }
+        
     }     
 }
