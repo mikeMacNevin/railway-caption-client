@@ -38,7 +38,7 @@ tr {
 
     }
     .article-website {
-        font-family:sans-serif;
+        font-family:"Old Standard TT", serif;
         font-size: 1rem;
         font-weight: 600; 
         color: variables.$primary !important;
@@ -47,8 +47,8 @@ tr {
     .article-title {
         padding-left: 5x;
         font-size: 1.2rem;
-        font-family: " serif";
-        font-weight:700;
+        font-family: sans-serif;
+        font-weight:500;
 
         a {
             /* some hacky shit from the internet to make the lines all double and same height - requires the 2.8rem up on tr > td as well*/
@@ -62,7 +62,6 @@ tr {
         }
     }
 }
-
 
 @media screen and (min-width: 768px) {
     .img-fluid {

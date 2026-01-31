@@ -23,19 +23,7 @@ import BasketballScores from './ScoresWidgets/BasketballScores';
 
 
 const Scores = () => {
-
   const [selectedSport, setSelectedSport] = useState('Soccer');
-
-     useEffect(() => {
-            // Load 365Scores script only once
-            const script = document.createElement('script');
-            script.src = 'https://widgets.365scores.com/main.js';
-            script.async = true;
-            document.body.appendChild(script);
-        
-            // Optional: cleanup on unmount (rarely needed)
-        
-          }, []); 
 
   const sports = [
     { name: 'Basketball', icon: <FaBasketballBall /> },
