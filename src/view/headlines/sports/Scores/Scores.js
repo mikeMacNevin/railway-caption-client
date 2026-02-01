@@ -1,6 +1,4 @@
-
-
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';  // Add useEffect
 import { Nav } from 'react-bootstrap';
 import {
   FaBasketballBall,
@@ -11,8 +9,6 @@ import {
   FaHockeyPuck,
 } from 'react-icons/fa';
 
-// Import your sport-specific Scores components
-// import BasketballScores from './ScoresWidgets/BasketballScores';
 import SoccerScores from './ScoresWidgets/SoccerScores';
 import FootballScores from './ScoresWidgets/FootballScores';
 import BaseballScores from './ScoresWidgets/BaseballScores';
@@ -20,10 +16,20 @@ import TennisScores from './ScoresWidgets/TennisScores';
 import HockeyScores from './ScoresWidgets/HockeyScores';
 import BasketballScores from './ScoresWidgets/BasketballScores';
 
-
-
 const Scores = () => {
   const [selectedSport, setSelectedSport] = useState('Soccer');
+
+  // Load the widget script once, after mount (when all <div>s are in DOM)
+  useEffect(() => {
+    if (window._365ScoresWidgetLoaded) return;  // Prevent reloads
+
+    window._365ScoresWidgetLoaded = true;
+
+    const script = document.createElement('script');
+    script.src = 'https://widgets.365scores.com/main.js';
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);  // Run only on first mount
 
   const sports = [
     { name: 'Basketball', icon: <FaBasketballBall /> },
@@ -33,25 +39,6 @@ const Scores = () => {
     { name: 'Tennis', icon: <FaTableTennis /> },
     { name: 'Hockey', icon: <FaHockeyPuck /> },
   ];
-
-  const renderScores = () => {
-    switch (selectedSport) {
-      case 'Basketball':
-        return <BasketballScores/> 
-      case 'Soccer':
-        return <SoccerScores />;
-      case 'Football':
-        return <FootballScores />;
-      case 'Baseball':
-        return <BaseballScores />;
-      case 'Tennis':
-        return <TennisScores />;
-      case 'Hockey':
-        return <HockeyScores />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <div>
@@ -69,7 +56,27 @@ const Scores = () => {
           </Nav.Item>
         ))}
       </Nav>
-      {renderScores()}
+
+      <div>
+        <div style={{ display: selectedSport === 'Basketball' ? 'block' : 'none' }}>
+          <BasketballScores />
+        </div>
+        <div style={{ display: selectedSport === 'Soccer' ? 'block' : 'none' }}>
+          <SoccerScores />
+        </div>
+        <div style={{ display: selectedSport === 'Football' ? 'block' : 'none' }}>
+          <FootballScores />
+        </div>
+        <div style={{ display: selectedSport === 'Baseball' ? 'block' : 'none' }}>
+          <BaseballScores />
+        </div>
+        <div style={{ display: selectedSport === 'Tennis' ? 'block' : 'none' }}>
+          <TennisScores />
+        </div>
+        <div style={{ display: selectedSport === 'Hockey' ? 'block' : 'none' }}>
+          <HockeyScores />
+        </div>
+      </div>
     </div>
   );
 };

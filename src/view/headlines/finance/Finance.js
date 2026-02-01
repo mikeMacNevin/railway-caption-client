@@ -16,7 +16,7 @@ const Finance = ({financeArticle}, currentPage) => {
             <div className="container"> 
                 <h2>FINANCE</h2>
                 {/* Button Group */}
-                <div className="btn-group mb-4 align-self-end pe-3" role="group" aria-label="Markets and News tabs">
+                <div className="btn-group mb-2 align-self-end pe-3" role="group" aria-label="Markets and News tabs">
                 <button
                     type="button"
                     className={`btn ${activeTab === 'markets' ? 'btn-success' : 'btn-outline-secondary'}`}

@@ -9,7 +9,7 @@ import axios from "axios";
 //Mike
 import Headline from "./headlines/Headline";
 import Finance from "./headlines/finance/Finance";
-// import Sports from "./headlines/sports/Sports";
+import Sports from "./headlines/sports/Sports";
 import './Home.scss'
 
 function Home () {
@@ -67,11 +67,11 @@ useEffect(() => {
       )
     }
 
-    // if (page === 'sports') {
-    //   return (
-    //     <Sports sportsArticle={data} currentPage={currentPage} />
-    //   )
-    // }
+    if (page === 'sports') {
+      return (
+        <Sports sportsArticle={data} currentPage={currentPage} />
+      )
+    }
     else {
       return (
           <div className="container home-container d-flex flex-column  pt-3">
@@ -83,6 +83,7 @@ useEffect(() => {
                 {data.map((article) => (<Headline key={article.source} article={article} ></Headline>))}    
               </tbody> 
             </table>   
+
           </div>
         )
       }

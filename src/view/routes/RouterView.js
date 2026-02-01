@@ -8,6 +8,7 @@ function RouterView() {
            <Routes>
               <Route path="/:page" element={<Home />} />
               <Route path="/" element={<Home />} />
+
             </Routes>
         </div>
     )

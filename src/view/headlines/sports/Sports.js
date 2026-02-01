@@ -13,7 +13,7 @@ const Sports = ({sportsArticle}, currentPage) => {
 
   //For Sports Widget:
 
-    console.log("SPORTS: " + JSON.stringify(sportsArticle))
+    // console.log("SPORTS: " + JSON.stringify(sportsArticle))
     const [activeTab, setActiveTab] = useState('scores');
 
     return (
