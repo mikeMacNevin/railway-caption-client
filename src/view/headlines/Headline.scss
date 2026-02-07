@@ -6,7 +6,6 @@ a {
 }
 
 a:hover {
-    text-decoration: none !important;
 }
 
 .img-fluid {
@@ -39,11 +38,11 @@ a:hover {
         line-height: 16px;
         padding: 0 2px;
         background-color: variables.$light;
-        transition: transform 250ms;
+        transition: transform 150ms;
 
     }
     .news-source:hover {
-        transform: scaleX(1.15);
+        transform: scaleX(1.05);
     }
     .article-website {
         font-family:"Old Standard TT", serif;
@@ -58,13 +57,12 @@ a:hover {
         font-family: "Oswald", sans-serif;
         font-weight:500;
         background-color: variables.$light;
-        transition: transform 500ms;
+        transition: transform 150ms;
 
     }
-    
-        
+            
     .article-title:hover {
-        transform: scaleX(1.1)
+        transform: scaleX(1.05)
     }
         a {
             /* some hacky shit from the internet to make the lines all double and same height - requires the 2.8rem up on tr > td as well*/
@@ -86,6 +84,28 @@ a:hover {
     }
 }
 
+@media screen and (min-width: 576px) {
+    .table tr { 
+
+        .news-source {
+            transition: transform 300ms;
+
+        }
+        .news-source:hover {
+            transform: scaleX(1.15);
+        }
+
+        .article-title {
+            transition: transform 300ms;
+        }
+        
+        .article-title:hover {
+            transform: scaleX(1.1)
+        }
+    }
+}
+
+
 @media screen and (max-width: 576px) {
     tr {
         .site-icon {
@@ -101,6 +121,7 @@ a:hover {
         .article-title {
             padding-left: 3px !important;
             padding-right: 3px !important;
+
         }   
         .news-source {
             padding-left: 3px !important;
