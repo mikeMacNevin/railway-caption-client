@@ -1,5 +1,8 @@
 @use "../../styles/_variables.scss";
 
+.text-light {
+    color: #F8F6F0 !important;
+}
 .fixed-bottom {
     background-color: variables.$primary !important;
 }

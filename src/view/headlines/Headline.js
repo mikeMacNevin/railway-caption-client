@@ -31,7 +31,7 @@ return (
                 </a>
             </td>
             <td className="article-title ">
-                <a className="link-opacity-50-hover" href={article.url}>
+                <a className="" href={article.url}>
                     {article.title}
                 </a>
             </td>

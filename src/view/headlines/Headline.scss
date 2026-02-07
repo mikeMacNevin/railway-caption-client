@@ -6,7 +6,7 @@ a {
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none !important;
 }
 
 .img-fluid {
@@ -17,39 +17,55 @@ a:hover {
 }
 
 
-tr { 
+.table tr { 
     td {
+
         vertical-align: middle;
         text-align: left;
         height:2.8rem;
         /* OVerrides bootstrap */
         padding: 0.35rem 0.5rem !important;
-        border-bottom: lightgray 2px solid
+        border-bottom: lightgray 2px solid;
+;
     }
     .site-icon {
         padding: 0px 4px;
+    background-color: variables.$light;
+    
     }
     .news-source {
         padding-top:0px;
         padding-bottom: 0px;
         line-height: 16px;
         padding: 0 2px;
-                color: variables.$primary !important;
+        background-color: variables.$light;
+        transition: transform 250ms;
 
+    }
+    .news-source:hover {
+        transform: scaleX(1.15);
     }
     .article-website {
         font-family:"Old Standard TT", serif;
         font-size: 1rem;
         font-weight: 600; 
-        color: variables.$primary !important;
-  
+        background-color: variables.$light;
+
     }
     .article-title {
         padding-left: 5x;
         font-size: 1.2rem;
-        font-family: sans-serif;
+        font-family: "Oswald", sans-serif;
         font-weight:500;
+        background-color: variables.$light;
+        transition: transform 500ms;
 
+    }
+    
+        
+    .article-title:hover {
+        transform: scaleX(1.1)
+    }
         a {
             /* some hacky shit from the internet to make the lines all double and same height - requires the 2.8rem up on tr > td as well*/
             display: -webkit-box;
@@ -58,10 +74,11 @@ tr {
             line-clamp: 2;
             overflow: hidden;
             text-overflow: ellipsis;
-            color: variables.$dark;
+            color: variables.$primary;
+            text-align: justify;
         }
     }
-}
+
 
 @media screen and (min-width: 768px) {
     .img-fluid {
@@ -78,17 +95,17 @@ tr {
         }
         .article-website {
             font-size: 0.8rem;
+            text-align: center !important;
+
         }
         .article-title {
-            font-size: 0.9rem;
             padding-left: 3px !important;
             padding-right: 3px !important;
-
         }   
         .news-source {
             padding-left: 3px !important;
             padding-right: 3px !important;
-
+            text-align: center;
         }
         
     }     

@@ -3,7 +3,7 @@
 import Headline from "../Headline";
 import Scores from "./Scores/Scores";
 
-import './sports.css'
+import './sports.scss'
 
 import { useState } from 'react';
 

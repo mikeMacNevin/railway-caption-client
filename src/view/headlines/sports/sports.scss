@@ -1,0 +1,14 @@
+@use "../../../styles/variables";
+
+
+.btn-group{
+    font-family: serif;
+
+}
+
+.nav-tabs {
+        .active {
+        background-color: variables.$light !important;
+        font-weight: bold;
+}
+}
