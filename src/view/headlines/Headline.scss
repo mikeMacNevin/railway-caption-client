@@ -29,33 +29,35 @@ a:hover {
     }
     .site-icon {
         padding: 0px 4px;
-    background-color: variables.$light;
+        background-color: variables.$light;
     
     }
     .news-source {
+
         padding-top:0px;
         padding-bottom: 0px;
         line-height: 16px;
         padding: 0 2px;
         background-color: variables.$light;
         transition: transform 150ms;
-
+        text-align: center;
     }
     .news-source:hover {
         transform: scaleX(1.05);
     }
     .article-website {
         font-family:"Old Standard TT", serif;
-        font-size: 1rem;
+
         font-weight: 600; 
         background-color: variables.$light;
 
     }
     .article-title {
-        padding-left: 5x;
+        text-align: justify;
+        padding-left: 5px;
         font-size: 1.2rem;
         font-family: "Oswald", sans-serif;
-        font-weight:500;
+        font-weight:400;
         background-color: variables.$light;
         transition: transform 150ms;
 
@@ -73,7 +75,6 @@ a:hover {
             overflow: hidden;
             text-overflow: ellipsis;
             color: variables.$primary;
-            text-align: justify;
         }
     }
 
@@ -107,25 +108,25 @@ a:hover {
 
 
 @media screen and (max-width: 576px) {
-    tr {
+    .table tr {
         .site-icon {
-            padding-left: 3px !important;
-            padding-right: 3px !important;
+            padding-left: 1px !important;
+            padding-right: 1px !important;
 
         }
         .article-website {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-align: center !important;
 
         }
         .article-title {
-            padding-left: 3px !important;
-            padding-right: 3px !important;
+            padding-left: 1px !important;
+            padding-right: 2px !important;
 
         }   
         .news-source {
-            padding-left: 3px !important;
-            padding-right: 3px !important;
+            padding-left: 1px !important;
+            padding-right: 1px !important;
             text-align: center;
         }
         

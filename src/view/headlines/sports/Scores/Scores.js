@@ -17,7 +17,7 @@ import HockeyScores from './ScoresWidgets/HockeyScores';
 import BasketballScores from './ScoresWidgets/BasketballScores';
 
 const Scores = () => {
-  const [selectedSport, setSelectedSport] = useState('Soccer');
+  const [selectedSport, setSelectedSport] = useState('Basketball');
 
   // Load the widget script once, after mount (when all <div>s are in DOM)
   useEffect(() => {
