@@ -1,6 +1,6 @@
 import TradingViewWidget from "./TradingViewWidget";
 import Headline from "../Headline";
-import { Container, Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
+import { Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
 
 import './finance.css'
 

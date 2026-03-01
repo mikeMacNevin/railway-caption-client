@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 //3rd Party
 import axios from "axios";
-import { Container, Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
+import { Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
 
 //Mike
 import Headline from "./headlines/Headline";
