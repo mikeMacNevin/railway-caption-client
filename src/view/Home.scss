@@ -1,6 +1,10 @@
 @use "../styles/_variables.scss";
 
 
+h2 {
+    font-size: 8rem;
+}
+
 .table {
 }
 
@@ -10,14 +14,11 @@ div.container {
 
 .home-container {
     padding-bottom: 65px; /* Still clears the bottom 80px due to margin*/
-    padding-left: 6px;
-    padding-right: 6px;
+
+    text-decoration: none !important;
 }
 
-h2 {
-    text-decoration: underline;
-    font-family: 'Oswald',sans-serif;
-}
+
 
 @media screen and (max-width: 576px) {
     .home-container {

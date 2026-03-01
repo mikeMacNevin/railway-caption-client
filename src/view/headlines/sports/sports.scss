@@ -1,9 +1,7 @@
 @use "../../../styles/variables";
 
-
-.btn-group{
-    font-family: serif;
-
+a, a:hover {
+        text-decoration: none !important;
 }
 
 .nav-tabs {
@@ -12,3 +10,8 @@
         font-weight: bold;
 }
 }
+
+        .container {
+                    text-decoration: none !important;
+
+        }
