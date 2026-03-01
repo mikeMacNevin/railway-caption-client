@@ -2,7 +2,7 @@
 
 import Headline from "../Headline";
 import Scores from "./Scores/Scores";
-import { Container, Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
+import { Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
 
 import './sports.scss'
 
