@@ -47,7 +47,7 @@ function Headline ( {article}) {
 
   return (
    <Card 
-      className="h-100 border-0 shadow-sm news-card"
+      className="h-100 shadow-sm news-card"
       style={{ transition: 'all 0.18s ease-out' }}
     >
       <Card.Body className="p-2 p-md-3 d-flex flex-column">

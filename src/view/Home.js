@@ -60,7 +60,7 @@ useEffect(() => {
       return (
 
       <div className="container home-container pt-1 pb-5">
-        <h2 className="mb-1 text-start text-md-start">{currentPage}</h2>
+        <h2 className="mb-1 current-page text-start">{currentPage}</h2>
 
         <Row xs={1} md={2} lg={2} className="g-3 g-md-4">  {/* adjust columns as desired */}
           {data.map((article) => (

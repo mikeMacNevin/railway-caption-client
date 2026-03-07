@@ -1,8 +1,8 @@
 @use "../styles/_variables.scss";
 
 
-h2 {
-    font-size: 8rem;
+h2.current-page {
+    color: variables.$primary;
 }
 
 .table {

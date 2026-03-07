@@ -1,152 +1,12 @@
 @use "../../styles/variables";
 
 
-
-// .img-fluid {
-//     width: 4rem;
-//     margin-top:-3px;
-//     min-width: 14px;
-//     min-height:14px;
-// }
-
-
-// .table {
-//   tr:hover {
-//             text-decoration: none !important;
-
-//   }
-//   tr td:hover {
-//         text-decoration: none !important;
-//   }
-// }
-
-// .table tr { 
-//     td {
-//         text-decoration: none !important;
-//         vertical-align: middle;
-//         text-align: left;
-//         height:2.8rem;
-//         /* OVerrides bootstrap */
-//         padding: 0.35rem 0.5rem !important;
-//         border-bottom: lightgray 2px solid;
-//         a {
-//             text-decoration: none !important;
-
-//         }
-//         a:hover {
-//             text-decoration: none !important;
-
-//         }
-//     }
-//     .site-icon {
-//         padding: 0px 4px;
-//         background-color: variables.$light;
-    
-//     }
-//     .news-source {
-
-//         padding-top:0px;
-//         padding-bottom: 0px;
-//         line-height: 16px;
-//         padding: 0 2px;
-//         background-color: variables.$light;
-//         transition: transform 150ms;
-//         text-align: center;
-//     }
-//     .news-source:hover {
-//         transform: scaleX(1.05);
-//     }
-//     .article-website {
-//         font-family:"Old Standard TT", serif;
-
-//         font-weight: 600; 
-//         background-color: variables.$light;
-
-//     }
-//     .article-title {
-//         text-align: justify;
-//         padding-left: 5px;
-//         font-size: 1.2rem;
-//         // font-family: "Oswald", sans-serif;
-//         font-weight:400;
-//         background-color: variables.$light;
-//         transition: transform 150ms;
-
-//     }
-            
-//     .article-title:hover {
-//         transform: scaleX(1.05)
-//     }
-//         a {
-//             /* some hacky shit from the internet to make the lines all double and same height - requires the 2.8rem up on tr > td as well*/
-//             display: -webkit-box;
-//             -webkit-box-orient: vertical;
-//             -webkit-line-clamp: 2;
-//             line-clamp: 2;
-//             overflow: hidden;
-//             text-overflow: ellipsis;
-//             color: variables.$primary;
-//         }
-//     }
-
-
-// @media screen and (min-width: 768px) {
-//     .img-fluid {
-//     width: 2.5rem;
-//     }
-// }
-
-// @media screen and (min-width: 576px) {
-//     .table tr { 
-
-//         .news-source {
-//             transition: transform 300ms;
-
-//         }
-//         .news-source:hover {
-//             transform: scaleX(1.05);
-//         }
-
-//         .article-title {
-//             transition: transform 300ms;
-//         }
-        
-//         .article-title:hover {
-//             transform: scaleX(1.05)
-//         }
-//     }
-// }
-
-
-// @media screen and (max-width: 576px) {
-//     .table tr {
-//         .site-icon {
-//             padding-left: 1px !important;
-//             padding-right: 1px !important;
-
-//         }
-//         .article-website {
-//             font-size: 0.9rem;
-//             text-align: center !important;
-
-//         }
-//         .article-title {
-//             padding-left: 1px !important;
-//             padding-right: 2px !important;
-
-//         }   
-//         .news-source {
-//             padding-left: 1px !important;
-//             padding-right: 1px !important;
-//             text-align: center;
-//         }
-        
-//     }     
-// }
-
 .news-card {
-  background-color: var(--bs-body-bg);
+  background-color: variables.$light;
   border-radius: 0.75rem;
+  border-style: solid;
+  border-width: 5px;
+  border-color: black;
   overflow: hidden;
 
   &:hover,
@@ -155,15 +15,13 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
   }
 
-
-
   .top-row {
     font-size: 0.95rem;
     color: var(--bs-secondary-color);
 
     .site-icon {
-      width: 25px;
-      height: 25px;
+      width: 12px;
+      height: 12px;
       object-fit: contain;
       background: var(--bs-light-bg-subtle);
       border: 1px solid var(--bs-border-color);
@@ -186,10 +44,9 @@
     line-height: 1.40;
     font-weight: 450;
     color: var(--bs-body-color);
-    text-align: justify;           // ← requested
-    hyphens: auto;                 // helps with justification on narrow widths
+    text-align: justify;          
+    hyphens: auto;                
     -webkit-hyphens: auto;
-    margin-bottom: 0.25rem;        // tiny breathing room if needed
 
     // Keep line clamping
     display: -webkit-box;
