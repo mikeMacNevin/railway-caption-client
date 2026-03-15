@@ -1,8 +1,28 @@
 @use "../../styles/_variables.scss";
 
-.text-light {
-    color: #F8F6F0 !important;
-}
+// .text-light {
+//     color: #F8F6F0 !important;
+// }
+// .fixed-bottom {
+//     background-color: variables.$primary !important;
+// }
+
+
 .fixed-bottom {
-    background-color: variables.$primary !important;
+  background-color: variables.$primary !important;   // your existing variable
+  border-top: 1px solid rgba(255,255,255,0.08); // subtle if needed
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// Optional: separator line between rows when expanded
+.fixed-bottom > .d-flex.flex-column > div:not(:last-child) {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+// If icons still feel vertically off, you can tweak:
+.d-flex.flex-column.justify-content-center {
+  padding-top: 4px;   // tiny nudge if needed – test on device
 }
