@@ -58,8 +58,6 @@ function Headline ( {article}) {
               src={article.site_icon_url} 
               alt={`${article.source} icon`} 
               className="site-icon rounded"
-              width={25} 
-              height={25} 
               loading="lazy"
             />
             <a 

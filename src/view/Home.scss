@@ -13,7 +13,7 @@ div.container {
 }
 
 .home-container {
-    padding-bottom: 65px; /* Still clears the bottom 80px due to margin*/
+    padding-bottom: 80px; /* Still clears the bottom 80px due to margin*/
 
     text-decoration: none !important;
 }
@@ -22,7 +22,7 @@ div.container {
 
 @media screen and (max-width: 576px) {
     .home-container {
-        padding-bottom: 65px; /* Still clears the bottom 80px due to margin*/
+        padding-bottom: 80px; /* Still clears the bottom 80px due to margin*/
         padding-left: 6px !important;
         padding-right: 6px !important;
     }
