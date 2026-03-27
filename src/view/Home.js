@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react"; 
 import { useParams } from 'react-router-dom';
 
-
 //3rd Party
 import axios from "axios";
 import { Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
@@ -14,80 +13,54 @@ import Sports from "./headlines/sports/Sports";
 import './Home.scss'
 
 function Home () {
-const { page } = useParams();
-const [data, setData] = useState([]); 
-const [currentPage, setCurrentPage] = useState([]); 
+  const { page } = useParams();
+  const [data, setData] = useState([]); 
+  const [currentPage, setCurrentPage] = useState(['Home']); 
 
+  useEffect(() => {
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+    window.scrollTo(0, 0);
+    setData([]);  
 
-useEffect(() => {
-  window.scrollTo(0, 0);
+    let endpoint = page === undefined 
+      ? `${API_URL}/api/articles/home`
+      : `${API_URL}/api/articles/${page}`;
+    axios
+      .get(endpoint)
+      .then((response) => {
+        setData(response.data.articles || []);
+        setCurrentPage(page ? page.toUpperCase() : "");
+      })
+      .catch((err) => {
+        console.log("fetch error:", err);
+        setData([]); 
+      });
 
-  // ← Add this line
-  setData([]);                   // or setData(null) if you prefer
+  }, [page]);
+    if (data) { 
+      if (page === 'finance') {
+        return (<Finance financeArticle={data} currentPage={currentPage}/>)}
+      if (page === 'sports') {
+        return (<Sports sportsArticle={data} currentPage={currentPage} />)}
+      else {
+        return (
+        <div className="container home-container pt-1">
+          <div className="container-fluid px-0 mb-3">
+            <h2 className="mb-1 current-page text-center">{currentPage}</h2>
+          </div>
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-
-  let endpoint = page === undefined 
-    ? `${API_URL}/api/articles/home`
-    : `${API_URL}/api/articles/${page}`;
-
-  axios
-    .get(endpoint)
-    .then((response) => {
-      setData(response.data.articles || []);
-      setCurrentPage(page ? page.toUpperCase() : "");
-    })
-    .catch((err) => {
-      console.log("fetch error:", err);
-      setData([]); // optional: recover by clearing on error
-    });
-
-}, [page]);
-  if (data) { 
-    if (page === 'finance') {
-      return (
-        <Finance financeArticle={data} currentPage={currentPage}/>
-      )
-    }
-
-    if (page === 'sports') {
-      return (
-        <Sports sportsArticle={data} currentPage={currentPage} />
-      )
-    }
-    else {
-      return (
-
-      <div className="container home-container pt-1">
-        <h2 className="mb-1 current-page text-start">{currentPage}</h2>
-
-        <Row xs={1} md={2} lg={2} className="g-3 g-md-4">  {/* adjust columns as desired */}
-          {data.map((article) => (
-            <Col key={article.source}>
-              <Headline article={article} />
-            </Col>
-          ))}
-        </Row>
-      </div>
-
-
-          // <div className="container home-container d-flex flex-column  pt-3">
-          //   {/* This was the page title.  I removed for now.  Maybe bring back and restyle */}
-            
-          //   <h2 className="mb-0 ">{currentPage }</h2>   
-          //   <table className="table ">              
-          //     <tbody>
-          //       {data.map((article) => (<Headline key={article.source} article={article} ></Headline>))}    
-          //     </tbody> 
-          //   </table>   
-
-          // </div>
-        )
+            <Row xs={1} md={2} lg={2} className="g-3 g-md-4">
+              {data.map((article) => (
+                <Col className="home-headline-col" key={article.source}>
+                  <Headline article={article} />
+                </Col>
+              ))}
+          </Row>
+          </div>
+          )
+        }
       }
-    }
   }
-  
-
     
 export default Home;

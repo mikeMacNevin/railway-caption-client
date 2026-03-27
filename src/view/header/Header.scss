@@ -3,11 +3,13 @@
 .header-container {
     background-color: variables.$primary;
     color: variables.$light;
+    margin-bottom: 0.5rem;
 }
 h1 {
     font-size: 2.5rem;
     font-family: serif;
     margin-bottom: 2px;
+    line-height: 1.2;
 }
 
 .site-logo {

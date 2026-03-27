@@ -50,9 +50,9 @@ function Headline ( {article}) {
       className="h-100 shadow-sm news-card"
       style={{ transition: 'all 0.18s ease-out' }}
     >
-      <Card.Body className="p-2 p-md-3 d-flex flex-column">
+      <Card.Body className="py-1 px-2 p-md-3 d-flex flex-column">
         {/* Top row: icon + source, justified */}
-        <div className="d-flex justify-content-between align-items-center mb-2 top-row">
+        <div className="d-flex justify-content-between align-items-center top-row">
           <div className="d-flex align-items-center gap-2">
             <img 
               src={article.site_icon_url} 

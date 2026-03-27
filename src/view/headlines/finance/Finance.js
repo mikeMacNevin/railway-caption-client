@@ -46,7 +46,7 @@ const Finance = ({financeArticle}, currentPage) => {
 
                 <Row xs={1} md={2} lg={2} className="g-3 g-md-4">  {/* adjust columns as desired */}
                   {financeArticle.map((article) => (
-                    <Col key={article.source}>
+                    <Col className="home-headline-col" key={article.source}>
                       <Headline article={article} />
                     </Col>
                   ))}

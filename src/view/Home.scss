@@ -9,7 +9,6 @@ h2.current-page {
 }
 
 div.container {
-    max-width: 600px;
 }
 
 .home-container {
@@ -25,5 +24,8 @@ div.container {
         padding-bottom: 80px; /* Still clears the bottom 80px due to margin*/
         padding-left: 6px !important;
         padding-right: 6px !important;
+    }
+    .row > .home-headline-col {
+        margin-top: 2px;
     }
 }
