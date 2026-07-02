@@ -7,6 +7,9 @@
 //     background-color: variables.$primary !important;
 // }
 
+.text-light-var {
+  color: variables.$light !important;
+}
 
 .fixed-bottom {
   background-color: variables.$primary !important;   // your existing variable

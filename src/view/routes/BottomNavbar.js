@@ -68,7 +68,7 @@ const BottomNavigation = () => {
                   to={item.to}
                   className={({ isActive }) =>
                     `flex-fill d-flex flex-column justify-content-center align-items-center text-decoration-none ${
-                      isActive ? 'text-warning' : 'text-light'
+                      isActive ? 'text-warning' : 'text-light-var'
                     }`
                   }
                   style={{ minWidth: 0 }}
@@ -92,7 +92,7 @@ const BottomNavigation = () => {
               to={item.to}
               className={({ isActive }) =>
                 `flex-fill d-flex flex-column justify-content-center align-items-center text-decoration-none  ${
-                  isActive ? 'text-warning' : 'text-light'
+                  isActive ? 'text-warning' : 'text-light-var'
                 }`
               }
               style={{ minWidth: 0 }}
@@ -109,7 +109,7 @@ const BottomNavigation = () => {
           {extraItems.length > 0 && (
             <div
               className={`flex-fill d-flex flex-column justify-content-center align-items-center text-decoration-none cursor-pointer ps-2 pe-2 ${
-                expanded ? 'text-warning' : 'text-light'
+                expanded ? 'text-warning' : 'text-light-var'
               }`}
               onClick={toggleExpand}
               role="button"

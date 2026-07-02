@@ -1,0 +1,8 @@
+@use "./styles/variables";
+
+
+div#root {
+  background-color: variables.$light;
+;
+}
+
