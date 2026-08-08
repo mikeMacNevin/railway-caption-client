@@ -1,7 +1,7 @@
 @use "./styles/variables";
 
 
-div#root {
+div#root, body {
   background-color: variables.$light;
 ;
 }

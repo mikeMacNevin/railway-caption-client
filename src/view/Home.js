@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 //3rd Party
 import axios from "axios";
-import { Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
 
 //Mike
 import Headline from "./headlines/Headline";
@@ -50,13 +49,11 @@ function Home () {
             <h2 className="mb-1 current-page text-center">{currentPage}</h2>
           </div>
 
-            <Row xs={1} md={2} lg={2} className="g-3 g-md-4">
+            <div className="headline-feed">
               {data.map((article) => (
-                <Col className="home-headline-col" key={article.source}>
-                  <Headline article={article} />
-                </Col>
+                <Headline key={article.source} article={article} />
               ))}
-          </Row>
+            </div>
           </div>
           )
         }

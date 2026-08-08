@@ -12,9 +12,13 @@ div.container {
 }
 
 .home-container {
-    padding-bottom: 80px; /* Still clears the bottom 80px due to margin*/
-
+    padding-bottom: 80px;
     text-decoration: none !important;
+}
+
+.headline-feed {
+    max-width: 680px;
+    margin: 0 auto;
 }
 
 

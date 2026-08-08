@@ -15,7 +15,7 @@ const Sports = ({sportsArticle}, currentPage) => {
   //For Sports Widget:
 
     // console.log("SPORTS: " + JSON.stringify(sportsArticle))
-    const [activeTab, setActiveTab] = useState('scores');
+    const [activeTab, setActiveTab] = useState('news');
 
     return (
         <div className="container home-container d-flex flex-column pt-1">
@@ -29,18 +29,19 @@ const Sports = ({sportsArticle}, currentPage) => {
 
                 <button
                     type="button"
-                    className={`btn ${activeTab === 'scores' ? 'btn-success' : 'btn-outline-secondary'}`}
-                    onClick={() => setActiveTab('scores')}
-                >
-                    Scores
-                </button>
-                <button
-                    type="button"
                     className={`btn ${activeTab === 'news' ? 'btn-success' : 'btn-outline-secondary'}`}
                     onClick={() => setActiveTab('news')}
                 >
-                News
+                  News
                 </button>
+                <button
+                    type="button"
+                    className={`btn ${activeTab === 'scores' ? 'btn-success' : 'btn-outline-secondary'}`}
+                    onClick={() => setActiveTab('scores')}
+                >
+                  Teams
+                </button>
+
 
               </div>
         </div>
