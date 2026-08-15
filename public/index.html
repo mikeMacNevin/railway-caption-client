@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="google-site-verification" content="IpnzYtPcMbkzIQFjQjWhoRuDPPdGWNuiMiUYTZPOtNU" />
-    <meta
-      name="description"
-      content="Headlines news.  News aggregator"
-    />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -25,8 +21,16 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <!-- Default/fallback title+description below. In production, server.js
+         pattern-matches and rewrites this exact <title>+description pair
+         per-route (adding OG/Twitter/canonical tags too) for crawlers and
+         link-unfurlers that don't execute JavaScript. HTML comments don't
+         survive CRA's build minification, so server.js can't rely on a
+         comment marker here - it matches the tags themselves. Keep this
+         <title> immediately followed by this exact description <meta> if
+         you edit this file, or update the regex in server.js to match. -->
     <title>caption.news</title>
-
+    <meta name="description" content="Headlines news.  News aggregator" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
