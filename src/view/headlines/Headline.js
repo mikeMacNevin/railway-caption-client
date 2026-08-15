@@ -20,7 +20,6 @@ function Headline({ article }) {
           >
             {article.source}
           </a>
-          <span className="dot-sep" aria-hidden="true" />
         </span>
         <a
           href={article.url}

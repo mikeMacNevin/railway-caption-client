@@ -33,7 +33,7 @@
 }
 
 .source-name {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: variables.$primary;
   letter-spacing: 0.05em;
@@ -47,17 +47,6 @@
   }
 }
 
-.dot-sep {
-  display: inline-block;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: variables.$tertiary;
-  margin-left: 2px;
-  flex-shrink: 0;
-  position: relative;
-  top: -1px;
-}
 
 .headline-text {
   display: -webkit-box;
@@ -78,6 +67,14 @@
 @media (max-width: 576px) {
   .headline-item {
     padding: 0.6rem 0;
+  }
+
+  .source-badge {
+    flex: 0 0 90px;
+  }
+
+  .source-name {
+    font-size: 0.72rem;
   }
 
   .headline-text {
