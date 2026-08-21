@@ -7,15 +7,15 @@ import './finance.css'
 import { useState } from 'react';
 
 
-const Finance = ({financeArticle}, currentPage) => {
+const Finance = ({financeArticle, currentPage}) => {
 
-    console.log("FINANCE: " + JSON.stringify(financeArticle))
     const [activeTab, setActiveTab] = useState('markets');
 
     return (
         <div className="container home-container d-flex flex-column  pt-1">
-            <div className="container d-flex flex-row justify-content-between align-items-center"> 
-                <h2>FINANCE</h2>
+            <h2 className="current-page">{currentPage}</h2>
+
+            <div className="container d-flex flex-row justify-content-end align-items-center px-0">
                 {/* Button Group */}
                 <div className="btn-group mb-2 align-self-end pe-3" role="group" aria-label="Markets and News tabs">
                 <button
@@ -34,7 +34,6 @@ const Finance = ({financeArticle}, currentPage) => {
                 </button>
             </div>
         </div>
-        {/* <h2 className="text-start">{currentPage}</h2> */}                  
          <div>
           {activeTab === 'markets' ? (
             <div>
@@ -42,19 +41,17 @@ const Finance = ({financeArticle}, currentPage) => {
             </div>
           ) : (
                <div className="container home-container pt-1 pb-5">
-                 <h2 className="mb-1 fw-light text-center text-md-start">{currentPage}</h2>
-
                 <Row xs={1} md={2} lg={2} className="g-3 g-md-4">  {/* adjust columns as desired */}
                   {financeArticle.map((article) => (
-                    <Col className="home-headline-col" key={article.source}>
+                    <Col className="home-headline-col" key={article.url}>
                       <Headline article={article} />
                     </Col>
                   ))}
                 </Row>
               </div>
               )}
-        </div>       
-            </div>            
+        </div>
+            </div>
     )
 }
 

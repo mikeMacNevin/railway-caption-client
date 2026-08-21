@@ -11,7 +11,7 @@
 
 .headline-row {
   display: flex;
-  align-items: baseline;
+  align-items: center; // keeps the source badge centered even when the headline wraps to 2 lines
   gap: 0;
   text-align: left;
 }
@@ -54,8 +54,9 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   flex: 1;
-  font-size: 1rem;
-  line-height: 1.55;
+  font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+  font-size: 1.08rem;
+  line-height: 1.4;
   font-weight: 400;
   color: #1a1a1a;
 
@@ -78,6 +79,6 @@
   }
 
   .headline-text {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 }

@@ -9,21 +9,15 @@ import './sports.scss'
 import { useState } from 'react';
 
 
-const Sports = ({sportsArticle}, currentPage) => {
+const Sports = ({sportsArticle, currentPage}) => {
 
-
-  //For Sports Widget:
-
-    // console.log("SPORTS: " + JSON.stringify(sportsArticle))
     const [activeTab, setActiveTab] = useState('news');
 
     return (
         <div className="container home-container d-flex flex-column pt-1">
-            
-            
+            <h2 className="current-page">{currentPage}</h2>
 
-            <div className="container d-flex flex-row justify-content-between align-items-center"> 
-              <h2>SPORTS</h2>
+            <div className="container d-flex flex-row justify-content-end align-items-center px-0">
                 {/* Button Group */}
                 <div className="btn-group mb-2 align-self-end pe-3" role="group" aria-label="Markets and News tabs">
 
@@ -45,7 +39,6 @@ const Sports = ({sportsArticle}, currentPage) => {
 
               </div>
         </div>
-        {/* <h2 className="text-start">{currentPage}</h2> */}                  
          <div>
           {activeTab === 'scores' ? (
             <div>
@@ -53,11 +46,9 @@ const Sports = ({sportsArticle}, currentPage) => {
             </div>
           ) : (
          <div className="container home-container pt-1 pb-5">
-        <h2 className="mb-4 fw-light text-center text-md-start">{currentPage}</h2>
-
         <Row xs={1} md={2} lg={2} className="g-3 g-md-4">  {/* adjust columns as desired */}
           {sportsArticle.map((article) => (
-            <Col className="home-headline-col" key={article.source}>
+            <Col className="home-headline-col" key={article.url}>
               <Headline article={article} />
             </Col>
           ))}
@@ -65,8 +56,8 @@ const Sports = ({sportsArticle}, currentPage) => {
       </div>
 
           )}
-        </div>       
-            </div>            
+        </div>
+            </div>
     )
 }
 

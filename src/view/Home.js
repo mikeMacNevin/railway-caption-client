@@ -17,12 +17,15 @@ import './Home.scss'
 function Home () {
   const { page } = useParams();
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(['Home']);
   const [isLoading, setIsLoading] = useState(true);
   const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
   const meta = PAGE_META[page] || PAGE_META['home'];
   const pageTitle = `${meta.title} | caption.news`;
+  // The on-page heading (e.g. "Gaming Headlines") - reuses the same friendly
+  // title as the SEO meta instead of the raw route slug. Empty on the Front
+  // Page, matching the existing "no title on home" behavior.
+  const sectionTitle = page ? meta.title : '';
 
   // Grace period before the loading screen appears, so quick loads don't flash it.
   const LOADING_SCREEN_DELAY_MS = 500;
@@ -46,7 +49,6 @@ function Home () {
       .get(endpoint)
       .then((response) => {
         setData(response.data.articles || []);
-        setCurrentPage(page ? page.toUpperCase() : "");
       })
       .catch((err) => {
         console.log("fetch error:", err);
@@ -66,9 +68,9 @@ function Home () {
     }
     if (data) {
       if (page === 'finance') {
-        return (<Finance financeArticle={data} currentPage={currentPage}/>)}
+        return (<Finance financeArticle={data} currentPage={sectionTitle}/>)}
       if (page === 'sports') {
-        return (<Sports sportsArticle={data} currentPage={currentPage} />)}
+        return (<Sports sportsArticle={data} currentPage={sectionTitle} />)}
       else {
         return (
         <div className="container home-container pt-1">
@@ -110,13 +112,15 @@ function Home () {
               }))
             })}</script>
           </Helmet>
-          <div className="container-fluid px-0 mb-3">
-            <h2 className="mb-1 current-page text-center">{currentPage}</h2>
-          </div>
+          {sectionTitle && (
+            <div className="container-fluid px-0">
+              <h2 className="current-page">{sectionTitle}</h2>
+            </div>
+          )}
 
             <div className="headline-feed">
               {data.map((article) => (
-                <Headline key={article.source} article={article} />
+                <Headline key={article.url} article={article} />
               ))}
             </div>
           </div>
