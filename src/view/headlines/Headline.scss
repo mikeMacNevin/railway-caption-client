@@ -18,9 +18,16 @@
 
 .source-badge {
   display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 0 0 108px;   // fixed width — all headlines start at the same column
+  min-width: 0;
+}
+
+.source-badge-top {
+  display: flex;
   align-items: center;
   gap: 4px;
-  flex: 0 0 108px;   // fixed width — all headlines start at the same column
   min-width: 0;
 }
 
@@ -45,6 +52,14 @@
   &:hover {
     color: variables.$tertiary;
   }
+}
+
+.source-time {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: variables.$primary;
+  opacity: 0.55;
+  padding-left: 17px; // lines up under source-name, past the icon + gap
 }
 
 
@@ -76,6 +91,10 @@
 
   .source-name {
     font-size: 0.72rem;
+  }
+
+  .source-time {
+    font-size: 0.65rem;
   }
 
   .headline-text {
