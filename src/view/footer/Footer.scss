@@ -1,0 +1,50 @@
+@use "../../styles/_variables.scss";
+
+.site-footer {
+    border-top: 1px solid rgba(19, 60, 85, 0.12);
+    padding: 1.4rem 1rem 2rem;
+    margin-top: 2rem;
+}
+
+.site-footer-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.site-footer-copy {
+    font-size: 0.8rem;
+    color: variables.$primary;
+    opacity: 0.6;
+}
+
+.site-footer-links {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.site-footer-links a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: variables.$primary;
+    opacity: 0.75;
+    text-decoration: none;
+
+    &:hover {
+        opacity: 1;
+        color: variables.$tertiary;
+    }
+}
+
+// The bottom tab bar is fixed and ~80px tall on mobile - give the footer
+// enough clearance so it isn't hidden underneath it.
+@media (max-width: 767px) {
+    .site-footer {
+        padding-bottom: 6rem;
+    }
+}

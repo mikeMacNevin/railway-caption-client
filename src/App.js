@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import RouterView from './view/routes/RouterView';
 import Navbar from './view/routes/Navbar';
 import Header from './view/header/Header';
+import Footer from './view/footer/Footer';
 import BottomNavbar from './view/routes/BottomNavbar.js'
 function App() {
 
@@ -19,7 +20,8 @@ function App() {
                   <Navbar />
                 </div>
                 <RouterView />
-                <div className="d-block d-md-none"> 
+                <Footer />
+                <div className="d-block d-md-none">
                   <BottomNavbar />
                 </div>
               </div>        

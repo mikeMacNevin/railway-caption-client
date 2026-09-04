@@ -1,0 +1,71 @@
+@use "../../styles/_variables.scss";
+
+.legal-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 0 3rem;
+    text-align: left;
+}
+
+.legal-updated {
+    font-size: 0.82rem;
+    color: variables.$primary;
+    opacity: 0.65;
+    margin: -0.4rem 0 1.6rem;
+}
+
+.legal-page h2 {
+    font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: variables.$primary;
+    margin: 2rem 0 0.6rem;
+}
+
+.legal-page h2:first-of-type {
+    margin-top: 0.5rem;
+}
+
+.legal-page p,
+.legal-page li {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: #333;
+}
+
+.legal-page p {
+    margin: 0 0 1rem;
+}
+
+.legal-page ul {
+    margin: 0 0 1rem;
+    padding-left: 1.3rem;
+}
+
+.legal-page a {
+    color: variables.$tertiary;
+    text-decoration: underline;
+}
+
+.legal-page a:hover {
+    color: variables.$primary;
+}
+
+.legal-note {
+    margin-top: 2.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(19, 60, 85, 0.14);
+    font-size: 0.86rem;
+    color: variables.$primary;
+    opacity: 0.75;
+}
+
+@media (max-width: 576px) {
+    .legal-page h2 {
+        font-size: 1.12rem;
+    }
+    .legal-page p,
+    .legal-page li {
+        font-size: 0.94rem;
+    }
+}
