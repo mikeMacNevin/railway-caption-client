@@ -2,17 +2,15 @@
     font-family: serif;
 }
 
-/* TradingView's own branding button renders inside the widget's iframe,
-   near its bottom-right, with a chunk of empty space below the visible
-   ticker rows before the iframe box actually ends - there's no gap
-   between the iframe and this div on our side, so pulling it up with a
-   negative margin overlaps it into that empty space instead of leaving
-   it stranded on its own line underneath. Value tuned by eye against the
-   live widget; it's a fixed pixel offset because we can't reach into the
-   iframe to measure the button's real position. */
-.tradingview-widget-copyright {
-    position: relative;
-    margin-top: -40px;
-    text-align: left;
-    padding-left: 12px;
+/* Web Component embed (see TradingViewWidget.js) - CSS custom properties
+   genuinely reach into its shadow DOM, unlike the old cross-origin iframe
+   embed, so this actually works instead of just being powerless against
+   a stray white card. Transparent means our own page background shows
+   through exactly, in both themes, with nothing to keep in sync by hand. */
+.tradingview-widget-container {
+    --tv-widget-background-color: transparent;
+}
+
+tv-market-overview {
+    display: block;
 }
