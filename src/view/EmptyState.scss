@@ -1,0 +1,17 @@
+@use "../styles/_variables.scss";
+
+.empty-state {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.empty-state p {
+    font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: variables.$primary;
+    opacity: 0.6;
+    margin: 0;
+}

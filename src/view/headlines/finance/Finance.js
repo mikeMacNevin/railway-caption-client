@@ -1,5 +1,6 @@
 import TradingViewWidget from "./TradingViewWidget";
 import Headline from "../Headline";
+import EmptyState from "../../EmptyState";
 import { Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
 
 import './finance.css'
@@ -41,13 +42,17 @@ const Finance = ({financeArticle, currentPage}) => {
             </div>
           ) : (
                <div className="container home-container pt-1 pb-5">
-                <Row xs={1} md={2} lg={2} className="g-3 g-md-4">  {/* adjust columns as desired */}
-                  {financeArticle.map((article) => (
-                    <Col className="home-headline-col" key={article.url}>
-                      <Headline article={article} />
-                    </Col>
-                  ))}
-                </Row>
+                {financeArticle.length === 0 ? (
+                  <EmptyState />
+                ) : (
+                  <Row xs={1} md={2} lg={2} className="g-3 g-md-4">  {/* adjust columns as desired */}
+                    {financeArticle.map((article) => (
+                      <Col className="home-headline-col" key={article.url}>
+                        <Headline article={article} />
+                      </Col>
+                    ))}
+                  </Row>
+                )}
               </div>
               )}
         </div>

@@ -11,6 +11,7 @@ import Headline from "./headlines/Headline";
 import Finance from "./headlines/finance/Finance";
 import Sports from "./headlines/sports/Sports";
 import LoadingScreen from "./loading/LoadingScreen";
+import EmptyState from "./EmptyState";
 import { PAGE_META, DEFAULT_IMAGE } from "../seoMeta";
 import './Home.scss'
 
@@ -118,11 +119,15 @@ function Home () {
             </div>
           )}
 
-            <div className="headline-feed">
-              {data.map((article) => (
-                <Headline key={article.url} article={article} />
-              ))}
-            </div>
+            {data.length === 0 ? (
+              <EmptyState />
+            ) : (
+              <div className="headline-feed">
+                {data.map((article) => (
+                  <Headline key={article.url} article={article} />
+                ))}
+              </div>
+            )}
           </div>
           )
         }
