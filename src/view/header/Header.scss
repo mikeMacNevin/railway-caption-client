@@ -1,7 +1,7 @@
 @use '../../styles/_variables.scss';
 
 .header-container {
-    // background-color: variables.$primary;
+    position: relative;
     color: variables.$light;
     margin-bottom: 0.5rem;
     max-height:300px;
@@ -10,4 +10,17 @@
 }
 img {
 max-height: 100px;
+}
+
+// One PNG can't recolor itself, so dark mode swaps in a pre-made "reversed"
+// variant (caption.news's own navy ink swapped for the light token) rather
+// than trying to filter/invert the original at runtime.
+.logo-dark {
+    display: none;
+}
+[data-bs-theme="dark"] .logo-dark {
+    display: inline;
+}
+[data-bs-theme="dark"] .logo-light {
+    display: none;
 }

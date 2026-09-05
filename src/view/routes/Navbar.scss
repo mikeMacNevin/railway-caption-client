@@ -1,9 +1,7 @@
-@use "../../styles/_variables.scss";
-
 .site-navbar {
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid rgba(19, 60, 85, 0.12);
+    border-bottom: 1px solid var(--border);
     padding: 0 1rem;
 }
 
@@ -29,7 +27,7 @@
     font-weight: 600;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: variables.$primary;
+    color: var(--text);
     text-decoration: none;
     border: none;
     background: none;
@@ -44,14 +42,14 @@
         right: 0.9rem;
         bottom: 0;
         height: 2px;
-        background-color: variables.$tertiary;
+        background-color: var(--accent);
         transform: scaleX(0);
         transform-origin: center;
         transition: transform 0.18s ease;
     }
 
     &:hover {
-        color: variables.$tertiary;
+        color: var(--accent);
     }
 
     &:hover::after {
@@ -63,7 +61,7 @@
     }
 
     &.active::after {
-        background-color: variables.$primary;
+        background-color: var(--text);
         transform: scaleX(1);
     }
 }
@@ -89,8 +87,8 @@
     top: calc(100% + 6px);
     right: 0;
     min-width: 170px;
-    background-color: #fff;
-    border: 1px solid rgba(19, 60, 85, 0.12);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 8px;
     box-shadow: 0 10px 28px rgba(19, 60, 85, 0.16);
     padding: 0.4rem;
@@ -99,21 +97,29 @@
     z-index: 20;
 }
 
+[data-bs-theme="dark"] .site-navbar-more-menu {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+}
+
 .site-navbar-more-item {
     padding: 0.55rem 0.75rem;
     font-size: 0.88rem;
     font-weight: 600;
-    color: variables.$primary;
+    color: var(--text);
     text-decoration: none;
     border-radius: 5px;
     white-space: nowrap;
 
     &:hover {
-        background-color: rgba(89, 165, 216, 0.14); // tertiary tint
+        background-color: rgba(89, 165, 216, 0.14); // tertiary tint, reads fine on both themes
     }
 
     &.active {
         background-color: rgba(19, 60, 85, 0.08);
         font-weight: 700;
     }
+}
+
+[data-bs-theme="dark"] .site-navbar-more-item.active {
+    background-color: rgba(248, 246, 240, 0.1);
 }

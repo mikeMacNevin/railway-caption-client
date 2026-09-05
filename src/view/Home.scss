@@ -8,11 +8,11 @@ h2.current-page {
     font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
     font-size: 1.6rem;
     font-weight: 700;
-    color: variables.$primary;
+    color: var(--text);
     text-align: left;
     margin: 0.5rem 0 0.9rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid variables.$tertiary;
+    border-bottom: 2px solid var(--accent);
 }
 
 // Home's feed is narrower (single column, centered) than Finance/Sports'

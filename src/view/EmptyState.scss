@@ -11,7 +11,7 @@
     font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
     font-size: 1.1rem;
     font-style: italic;
-    color: variables.$primary;
+    color: var(--text);
     opacity: 0.6;
     margin: 0;
 }

@@ -1,9 +1,5 @@
-@use "./styles/variables";
-
-
 .App {
   text-align: center;
-  background-color: variables.$light;
-;
+  background-color: var(--bg);
 }
 

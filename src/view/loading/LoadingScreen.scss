@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: variables.$light;
+    background-color: var(--bg);
 }
 
 .loading-screen-content {
@@ -24,12 +24,23 @@
     animation: loading-pulse 1.8s ease-in-out infinite;
 }
 
+// Same light/dark logo swap as the header - see Header.scss.
+.loading-logo.logo-dark {
+    display: none;
+}
+[data-bs-theme="dark"] .loading-logo.logo-dark {
+    display: block;
+}
+[data-bs-theme="dark"] .loading-logo.logo-light {
+    display: none;
+}
+
 .loading-spinner {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 4px solid rgba(19, 60, 85, 0.15);
-    border-top-color: variables.$primary;
+    border: 4px solid var(--border-strong);
+    border-top-color: var(--accent);
     animation: loading-spin 0.8s linear infinite;
 }
 

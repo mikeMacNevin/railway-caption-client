@@ -2,6 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- Resolve dark/light before anything paints, so there's no flash of
+         the wrong theme. Mirrors src/theme.js's own resolution logic -
+         kept in sync by hand since this has to run before React (or any
+         bundled JS) exists yet. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('caption-news-theme');
+          var theme = (stored === 'light' || stored === 'dark')
+            ? stored
+            : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-bs-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
@@ -40,7 +55,7 @@
      <!-- <script src="https://widgets.365scores.com/main.js" async></script> -->
 
   </head>
-  <body style="background-color: #F8F6F0;">
+  <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--

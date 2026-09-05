@@ -1,8 +1,45 @@
 @use "./styles/variables";
 
-
-div#root, body {
-  background-color: variables.$light;
-;
+// Theme tokens. Everything that needs to flip between light and dark reads
+// from one of these instead of a hardcoded color - components then never
+// need to know which theme is active themselves.
+//
+// [data-bs-theme] is Bootstrap 5.3's own dark-mode attribute (set by
+// theme.js) - reusing it means Bootstrap's own components (the plain
+// btn-success/btn-outline-secondary buttons on the Finance/Sports tabs)
+// get sensible dark styling for free, on the same switch as everything
+// else here.
+:root {
+  --bg: #{variables.$light};
+  --surface: #FFFFFF;
+  --text: #{variables.$primary};
+  --body-text: #1a1a1a;
+  --accent: #{variables.$tertiary};
+  --border: rgba(19, 60, 85, 0.12);
+  --border-strong: rgba(19, 60, 85, 0.35);
 }
 
+[data-bs-theme="dark"] {
+  // Same hue/saturation as $primary, just darker - a page-sized wall of
+  // the brand navy at full lightness reads as a flat blue box, not a dark
+  // theme, so the background goes darker while $primary itself becomes
+  // the "surface" tone one step up (footer, dropdowns, cards).
+  --bg: #091D2A;
+  --surface: #{variables.$primary};
+  --text: #{variables.$light};
+  --body-text: #D8D4C8;
+  --accent: #{variables.$tertiary};
+  --border: rgba(248, 246, 240, 0.12);
+  --border-strong: rgba(248, 246, 240, 0.30);
+}
+
+// Bootstrap's own dark-mode reboot styles also set a plain `body` selector
+// (a generic gray, not this site's navy), with equal specificity and later
+// in the bundle - !important here isn't decorative, it's what keeps this
+// site's palette authoritative over Bootstrap's default, matching how
+// other overrides in this app already handle the same fight (see
+// .fixed-bottom in BottomNavbar.scss).
+div#root, body {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+}
