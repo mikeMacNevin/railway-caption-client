@@ -39,7 +39,12 @@
 // site's palette authoritative over Bootstrap's default, matching how
 // other overrides in this app already handle the same fight (see
 // .fixed-bottom in BottomNavbar.scss).
-div#root, body {
+// html itself has no background otherwise (only body does) - harmless
+// normally since body covers the viewport, but a transparent html is one
+// less thing to worry about (overscroll bounce, a body shorter than the
+// viewport, etc. would otherwise show the browser's own white canvas
+// through it in dark mode).
+html, div#root, body {
   background-color: var(--bg) !important;
   color: var(--text) !important;
 }
