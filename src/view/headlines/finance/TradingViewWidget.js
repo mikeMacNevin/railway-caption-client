@@ -148,25 +148,33 @@ function TradingViewWidget() {
       // TradingView's own embed has no live "change theme" API - it only
       // reads colorTheme once, at script-injection time - so reflecting a
       // theme change means clearing the widget out and re-injecting it.
-      // TradingView's script replaces the placeholder div with an iframe
-      // (plus some <style> tags) as direct siblings in this container, so
-      // clear everything EXCEPT our own copyright div - a blanket
-      // innerHTML='' would delete that too, since React rendered it as a
-      // sibling of the widget, not something TradingView's script owns.
+      // TradingView's script specifically looks for a
+      // tradingview-widget-container__widget placeholder div and replaces
+      // IT, in place, with the actual iframe - that's how the iframe ends
+      // up positioned before our copyright div despite the <script> tag
+      // itself sitting elsewhere. On a re-render there's no placeholder
+      // left (a previous run already consumed it), and without one the
+      // script falls back to just appending the iframe whereever, landing
+      // it after the copyright div instead of before. So: discard
+      // whatever TradingView rendered last time (iframe + its own <style>
+      // tags), keep our own copyright div, and recreate a fresh
+      // placeholder in the first position so the script has its expected
+      // target again, exactly like the first render.
       const el = container.current;
-      Array.from(el.children).forEach((child) => {
-        if (!child.classList.contains('tradingview-widget-copyright')) {
-          el.removeChild(child);
-        }
-      });
+      const copyrightEl = el.querySelector('.tradingview-widget-copyright');
+      el.innerHTML = '';
+
+      const placeholder = document.createElement('div');
+      placeholder.className = 'tradingview-widget-container__widget';
+      el.appendChild(placeholder);
+      el.appendChild(copyrightEl);
 
       const script = document.createElement("script");
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
       script.type = "text/javascript";
       script.async = true;
       script.innerHTML = JSON.stringify(buildConfig(theme));
-      const copyrightEl = el.querySelector('.tradingview-widget-copyright');
-      el.insertBefore(script, copyrightEl);
+      el.appendChild(script);
     }
 
     render(resolveTheme());
