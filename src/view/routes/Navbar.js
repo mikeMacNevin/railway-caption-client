@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import './Navbar.scss';
+
+const SEARCH_DEBOUNCE_MS = 300;
 
 const mainLinks = [
     { to: '/',         label: 'Front Page', end: true },
@@ -25,6 +27,39 @@ function Navbar() {
     const [moreOpen, setMoreOpen] = useState(false);
     const moreRef = useRef(null);
     const location = useLocation();
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const searchDebounceRef = useRef(null);
+
+    const onSearchPage = location.pathname === '/search';
+    // Only reflects the URL while actually on /search - leaving search
+    // (clicking Politics, say) should clear it rather than carry a stale
+    // query into whatever page you land on next.
+    const [searchValue, setSearchValue] = useState(onSearchPage ? (searchParams.get('q') || '') : '');
+
+    useEffect(() => {
+        setSearchValue(onSearchPage ? (searchParams.get('q') || '') : '');
+    }, [onSearchPage, searchParams]);
+
+    useEffect(() => {
+        return () => {
+            if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+        };
+    }, []);
+
+    function handleSearchChange(e) {
+        const value = e.target.value;
+        setSearchValue(value);
+
+        if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+        searchDebounceRef.current = setTimeout(() => {
+            const query = value ? `?q=${encodeURIComponent(value)}` : '';
+            // Once already on /search, each keystroke replaces history
+            // instead of pushing - otherwise the back button would have to
+            // click through every character typed.
+            navigate(`/search${query}`, { replace: onSearchPage });
+        }, SEARCH_DEBOUNCE_MS);
+    }
 
     const isMoreActive = moreLinks.some(link => link.to === location.pathname);
 
@@ -92,6 +127,19 @@ function Navbar() {
                     )}
                 </li>
             </ul>
+            <div className="site-navbar-search">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                    type="text"
+                    placeholder="Search headlines"
+                    value={searchValue}
+                    onChange={handleSearchChange}
+                    aria-label="Search headlines"
+                />
+            </div>
         </nav>
     );
 }

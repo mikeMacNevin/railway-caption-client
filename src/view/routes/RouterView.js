@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "../Home";
 import PrivacyPolicy from "../legal/PrivacyPolicy";
 import Terms from "../legal/Terms";
+import Search from "../search/Search";
 import { initAnalytics, trackPageview } from "../../analytics";
 
 function RouterView() {
@@ -22,6 +23,7 @@ function RouterView() {
            <Routes>
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<Terms />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/:page" element={<Home />} />
               <Route path="/" element={<Home />} />
 

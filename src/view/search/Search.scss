@@ -1,0 +1,104 @@
+.search-container {
+  padding-bottom: 80px; // clears the fixed mobile bottom nav, matching Home
+  max-width: 680px;
+}
+
+.search-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1.5px solid var(--accent);
+  border-radius: 20px;
+  padding: 0.55rem 1rem;
+  margin: 0.75rem 0 1.1rem;
+  background: var(--surface, var(--bg));
+}
+
+.search-input-icon {
+  flex-shrink: 0;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.search-input {
+  border: none;
+  background: none;
+  outline: none;
+  flex: 1;
+  min-width: 0;
+  font-size: 1rem;
+  color: var(--body-text);
+
+  &::placeholder {
+    color: var(--text);
+    opacity: 0.45;
+  }
+}
+
+.search-hint,
+.search-empty {
+  font-size: 0.88rem;
+  color: var(--text);
+  opacity: 0.6;
+  margin: 0 0 1rem;
+}
+
+.search-meta {
+  margin-bottom: 0.6rem;
+}
+
+.search-count {
+  font-size: 0.82rem;
+  color: var(--text);
+  opacity: 0.65;
+
+  b {
+    opacity: 1;
+    font-weight: 700;
+  }
+}
+
+.search-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+
+.search-chip {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.32rem 0.75rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  background: rgba(19, 60, 85, 0.06);
+  white-space: nowrap;
+
+  &.active {
+    background: var(--text);
+    color: var(--bg);
+  }
+}
+
+// :not(.active) keeps this from tying (and, by source order, winning
+// against) .search-chip.active's own background above - both are
+// two-class-equivalent specificity, so without this an active chip in
+// dark mode would get this near-transparent tint instead of its solid
+// highlight, pairing dark text with a dark background.
+[data-bs-theme="dark"] .search-chip:not(.active) {
+  background: rgba(248, 246, 240, 0.08);
+}
+
+@media (max-width: 576px) {
+  .search-input-row {
+    padding: 0.5rem 0.85rem;
+  }
+
+  .search-chip {
+    font-size: 0.7rem;
+    padding: 0.28rem 0.65rem;
+  }
+}

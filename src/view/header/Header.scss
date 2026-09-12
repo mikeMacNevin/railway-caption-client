@@ -24,3 +24,52 @@ max-height: 100px;
 [data-bs-theme="dark"] .logo-light {
     display: none;
 }
+
+// currentColor would otherwise inherit .header-container's $light text
+// color - invisible against this same light background - so it needs the
+// same explicit var(--text) override ThemeToggle already uses.
+.header-search-link {
+    position: absolute;
+    top: 1rem;
+    right: 4.4rem;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    color: var(--text);
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+        background-color: var(--border);
+        color: var(--accent);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+}
+
+// Desktop already has a persistent search box inline in Navbar.js.
+@media (min-width: 768px) {
+    .header-search-link {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-search-link {
+        top: 0.75rem;
+        right: 3.6rem;
+        width: 34px;
+        height: 34px;
+
+        svg {
+            width: 17px;
+            height: 17px;
+        }
+    }
+}
