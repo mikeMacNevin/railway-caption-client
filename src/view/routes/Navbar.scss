@@ -1,10 +1,19 @@
+// Three tracks - empty spacer, links, search - so the outer two grow
+// equally and the link list lands centered instead of drifting toward
+// whichever side has less content next to it (plain flex space-between
+// would push the links flush left since the spacer has nothing to
+// balance the search box's width).
 .site-navbar {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
     gap: 1rem;
     border-bottom: 1px solid var(--border);
     padding: 0 1rem;
+}
+
+.site-navbar-spacer {
+    min-width: 0;
 }
 
 .site-navbar-list {
@@ -131,6 +140,7 @@
     align-items: center;
     gap: 0.5rem;
     flex-shrink: 0;
+    justify-self: end;
     border: 1.5px solid var(--accent);
     border-radius: 16px;
     padding: 0.35rem 0.8rem;

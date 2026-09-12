@@ -88,6 +88,11 @@ function Navbar() {
 
     return (
         <nav className="site-navbar">
+            {/* Balances the search box on the right so the link list
+                lands in the true center instead of hugging the left -
+                same width-matching trick as a header with a logo centered
+                between two independent side elements. */}
+            <span className="site-navbar-spacer" aria-hidden="true" />
             <ul className="site-navbar-list">
                 {mainLinks.map(link => (
                     <li key={link.to}>
