@@ -1,7 +1,7 @@
 import './LoadingScreen.scss';
 
 import topLogo from '../../assets/top-logo.png';
-import topLogoDark from '../../assets/top-logo-dark.png';
+import topLogoDark from '../../assets/top-logo-dark.svg';
 
 function LoadingScreen() {
     return (

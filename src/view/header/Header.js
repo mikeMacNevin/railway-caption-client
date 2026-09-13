@@ -2,7 +2,7 @@ import './Header.scss'
 
 import { Link } from 'react-router-dom';
 import topLogo from '../../assets/top-logo.png';
-import topLogoDark from '../../assets/top-logo-dark.png';
+import topLogoDark from '../../assets/top-logo-dark.svg';
 import ThemeToggle from './ThemeToggle';
 
 function header() {
