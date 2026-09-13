@@ -48,15 +48,22 @@ function loadWidgetScript() {
 
 const SYMBOL_SECTORS = JSON.stringify([
     {
-        sectionName: 'Indices',
-        symbols: ['AMEX:SPY', 'AMEX:VIOO', 'AMEX:VEA', 'AMEX:EEM', 'AMEX:IEV', 'NASDAQ:MCHI'],
+        sectionName: 'Stocks',
+        // S&P 500, S&P 600, Nasdaq, DOW, International (Europe), International (Asia)
+        symbols: ['AMEX:SPY', 'AMEX:VIOO', 'NASDAQ:QQQ', 'AMEX:DIA', 'AMEX:IEV', 'NASDAQ:AAXJ'],
+    },
+    {
+        sectionName: 'Bonds',
+        // Fed Funds, Corp AAA, Corp BBB, Corp Junk, 2yr/10yr/30yr Treasury
+        symbols: ['FRED:FEDFUNDS', 'FRED:AAA', 'FRED:BAA', 'AMEX:HYG', 'FRED:DGS2', 'FRED:DGS10', 'FRED:DGS30'],
     },
     {
         sectionName: 'Commodities',
-        symbols: ['CMCMARKETS:GOLD', 'TVC:SILVER', 'CAPITALCOM:NATURALGAS', 'PYTH:WTI3!', 'CAPITALCOM:COPPER', 'CAPITALCOM:WHEAT'],
+        symbols: ['CMCMARKETS:GOLD', 'TVC:SILVER', 'PYTH:WTI3!', 'CAPITALCOM:NATURALGAS', 'CAPITALCOM:COPPER', 'AMEX:URA'],
     },
     {
-        sectionName: 'Misc',
+        // Everything that used to live under "Misc".
+        sectionName: 'Econ',
         symbols: ['FRED:FEDFUNDS', 'FRED:UNRATE', 'FRED:MORTGAGE30US', 'FRED:FYFSD', 'FRED:DGS10'],
     },
 ]);
