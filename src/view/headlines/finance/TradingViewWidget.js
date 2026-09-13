@@ -54,12 +54,12 @@ const SYMBOL_SECTORS = JSON.stringify([
     },
     {
         sectionName: 'Bonds',
-        // Fed Funds, Corp AAA, Corp BBB, Corp Junk, 2yr/10yr/30yr Treasury
-        symbols: ['FRED:FEDFUNDS', 'FRED:AAA', 'FRED:BAA', 'AMEX:HYG', 'FRED:DGS2', 'FRED:DGS10', 'FRED:DGS30'],
+        // Fed Funds, 2yr/10yr/30yr Treasury, Agg Bond ETF, Corp AAA/BBB, Corp Junk
+        symbols: ['FRED:FEDFUNDS', 'FRED:DGS2', 'FRED:DGS10', 'FRED:DGS30', 'AMEX:AGG', 'FRED:AAA', 'FRED:BAMLC0A4CBBBEY', 'AMEX:HYG'],
     },
     {
         sectionName: 'Commodities',
-        symbols: ['CMCMARKETS:GOLD', 'TVC:SILVER', 'PYTH:WTI3!', 'CAPITALCOM:NATURALGAS', 'CAPITALCOM:COPPER', 'AMEX:URA'],
+        symbols: ['CMCMARKETS:GOLD', 'TVC:SILVER', 'TVC:USOIL', 'CAPITALCOM:NATURALGAS', 'CAPITALCOM:COPPER', 'AMEX:URA'],
     },
     {
         // Everything that used to live under "Misc".
