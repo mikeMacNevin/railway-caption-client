@@ -8,12 +8,21 @@
     padding-top:1rem;
     padding-bottom:0.75rem;
 }
-// Logo.js (a traced-to-vector wordmark) replaces the old img{max-height}
-// pair - see index.scss for the .logo-caption theme recolor rule shared
-// with LoadingScreen.
-.site-logo {
-    max-height: 100px;
-    width: auto;
+img {
+max-height: 100px;
+}
+
+// One PNG can't recolor itself, so dark mode swaps in a pre-made "reversed"
+// variant (caption.news's own navy ink swapped for the light token) rather
+// than trying to filter/invert the original at runtime.
+.logo-dark {
+    display: none;
+}
+[data-bs-theme="dark"] .logo-dark {
+    display: inline;
+}
+[data-bs-theme="dark"] .logo-light {
+    display: none;
 }
 
 // currentColor would otherwise inherit .header-container's $light text

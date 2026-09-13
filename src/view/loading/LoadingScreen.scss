@@ -24,6 +24,17 @@
     animation: loading-pulse 1.8s ease-in-out infinite;
 }
 
+// Same light/dark logo swap as the header - see Header.scss.
+.loading-logo.logo-dark {
+    display: none;
+}
+[data-bs-theme="dark"] .loading-logo.logo-dark {
+    display: block;
+}
+[data-bs-theme="dark"] .loading-logo.logo-light {
+    display: none;
+}
+
 .loading-spinner {
     width: 40px;
     height: 40px;

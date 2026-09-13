@@ -48,15 +48,3 @@ html, div#root, body {
   background-color: var(--bg) !important;
   color: var(--text) !important;
 }
-
-// caption.news wordmark (assets/Logo.js) - "caption" recolors per theme
-// the same way the old light/dark PNG pair did (colors sampled from that
-// original artwork - kept as fixed brand colors here rather than reusing
-// --text, so the logo doesn't drift if that token is retuned later).
-// ".news" stays a fixed accent blue in both themes - see Logo.js.
-.logo-caption {
-  fill: #003770;
-}
-[data-bs-theme="dark"] .logo-caption {
-  fill: #{variables.$light};
-}
