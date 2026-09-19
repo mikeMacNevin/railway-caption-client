@@ -17,7 +17,7 @@ import HockeyScores from './ScoresWidgets/HockeyScores';
 import BasketballScores from './ScoresWidgets/BasketballScores';
 
 const Scores = () => {
-  const [selectedSport, setSelectedSport] = useState('Basketball');
+  const [selectedSport, setSelectedSport] = useState('Football');
 
   // Load the widget script once, after mount (when all <div>s are in DOM)
   useEffect(() => {
@@ -32,9 +32,9 @@ const Scores = () => {
   }, []);  // Run only on first mount
 
   const sports = [
+    { name: 'Football', icon: <FaFootballBall /> },
     { name: 'Basketball', icon: <FaBasketballBall /> },
     { name: 'Soccer', icon: <FaFutbol /> },
-    { name: 'Football', icon: <FaFootballBall /> },
     { name: 'Baseball', icon: <FaBaseballBall /> },
     { name: 'Tennis', icon: <FaTableTennis /> },
     { name: 'Hockey', icon: <FaHockeyPuck /> },
@@ -58,14 +58,14 @@ const Scores = () => {
       </Nav>
 
       <div>
+        <div style={{ display: selectedSport === 'Football' ? 'block' : 'none' }}>
+          <FootballScores />
+        </div>
         <div style={{ display: selectedSport === 'Basketball' ? 'block' : 'none' }}>
           <BasketballScores />
         </div>
         <div style={{ display: selectedSport === 'Soccer' ? 'block' : 'none' }}>
           <SoccerScores />
-        </div>
-        <div style={{ display: selectedSport === 'Football' ? 'block' : 'none' }}>
-          <FootballScores />
         </div>
         <div style={{ display: selectedSport === 'Baseball' ? 'block' : 'none' }}>
           <BaseballScores />
