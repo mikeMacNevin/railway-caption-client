@@ -53,6 +53,14 @@ max-height: 100px;
     }
 }
 
+// Wrapper around the two icon buttons - only exists so mobile can reflow
+// them into their own row via CSS (below) without changing markup. On
+// desktop it should behave as if it weren't there at all, so ThemeToggle's
+// own `position: absolute` still resolves against `.header-container`.
+.header-icons {
+    display: contents;
+}
+
 // Desktop already has a persistent search box inline in Navbar.js.
 @media (min-width: 768px) {
     .header-search-link {
@@ -60,10 +68,28 @@ max-height: 100px;
     }
 }
 
+// Below 768px the logo wordmark gets wide enough, relative to the viewport,
+// that pinning the search/theme icons to fixed top-right offsets makes them
+// overlap it - the logo can run right under the icons on a narrow phone.
+// Give the icons a real row of their own, above the logo (centering stays
+// on .App's text-align: center - deliberately NOT switching .header-container
+// to flex here, since a replaced element like <img> sized only by
+// max-height collapses to 0 width as a flex item without an explicit width).
+@media (max-width: 767px) {
+    .header-icons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header-search-link {
+        position: static;
+    }
+}
+
 @media (max-width: 576px) {
     .header-search-link {
-        top: 0.75rem;
-        right: 3.6rem;
         width: 34px;
         height: 34px;
 

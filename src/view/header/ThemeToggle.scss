@@ -26,10 +26,16 @@
     }
 }
 
+// Reflowed into its own row alongside the search icon on mobile - see
+// Header.scss's `.header-icons` for why.
+@media (max-width: 767px) {
+    .theme-toggle {
+        position: static;
+    }
+}
+
 @media (max-width: 576px) {
     .theme-toggle {
-        top: 0.75rem;
-        right: 0.75rem;
         width: 34px;
         height: 34px;
         font-size: 0.95rem;

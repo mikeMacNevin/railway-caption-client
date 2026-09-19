@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 
@@ -110,6 +110,17 @@ function Search() {
             pages for the same headlines. */}
         <meta name="robots" content="noindex" />
       </Helmet>
+
+      {/* Desktop already has a persistent "Front Page" link in Navbar.js
+          (and a clickable logo) - this is the mobile escape hatch, since
+          the search icon in Header.js is otherwise a one-way door in. */}
+      <Link to="/" className="search-back-link d-md-none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+        Back to Front Page
+      </Link>
 
       {/* Desktop's search box lives in Navbar.js instead, next to the
           category links - this one is the mobile equivalent, reached via
