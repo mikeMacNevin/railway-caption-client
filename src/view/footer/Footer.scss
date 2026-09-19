@@ -39,10 +39,10 @@
     }
 }
 
-// The bottom tab bar is fixed and ~80px tall on mobile - give the footer
-// enough clearance so it isn't hidden underneath it.
+// The bottom tab bar is fixed and ~124px tall on mobile (briefing row + icon
+// row) - give the footer enough clearance so it isn't hidden underneath it.
 @media (max-width: 767px) {
     .site-footer {
-        padding-bottom: 6rem;
+        padding-bottom: 9rem;
     }
 }

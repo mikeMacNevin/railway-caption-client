@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { FaWandMagicSparkles } from 'react-icons/fa6';
 import './Navbar.scss';
 
 const SEARCH_DEBOUNCE_MS = 300;
 
 const mainLinks = [
+    { to: '/briefing', label: 'Briefing', briefing: true },
     { to: '/',         label: 'Front Page', end: true },
     { to: '/politics', label: 'Politics' },
     { to: '/finance',  label: 'Finance' },
@@ -99,8 +101,9 @@ function Navbar() {
                         <NavLink
                             to={link.to}
                             end={link.end}
-                            className={({ isActive }) => `site-navbar-link${isActive ? ' active' : ''}`}
+                            className={({ isActive }) => `site-navbar-link${link.briefing ? ' site-navbar-link-briefing' : ''}${isActive ? ' active' : ''}`}
                         >
+                            {link.briefing && <FaWandMagicSparkles size={13} aria-hidden="true" />}
                             {link.label}
                         </NavLink>
                     </li>

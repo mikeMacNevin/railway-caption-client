@@ -171,3 +171,51 @@
         }
     }
 }
+
+// Sets the AI briefing apart from the section links - it's a different
+// kind of page (a written overview, not a headline feed).
+.site-navbar-link-briefing {
+    color: var(--accent);
+}
+
+// The centered layout above needs the search box's width reserved on BOTH
+// sides of the link list (~1180px in total), so below that it overflows the
+// screen. Tier down instead:
+//   992-1199px: drop the balancing spacer - links sit in the space left of search.
+//   768-991px:  not enough room for one row, so search drops beneath the links.
+@media (max-width: 1199px) {
+    .site-navbar {
+        grid-template-columns: 1fr auto;
+    }
+
+    .site-navbar-spacer {
+        display: none;
+    }
+
+    .site-navbar-list {
+        justify-self: center;
+    }
+}
+
+@media (max-width: 991px) {
+    .site-navbar {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 0;
+        padding-bottom: 0.7rem;
+    }
+
+    .site-navbar-search {
+        justify-self: center;
+    }
+
+    .site-navbar-link {
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+
+        &::after {
+            left: 0.7rem;
+            right: 0.7rem;
+        }
+    }
+}

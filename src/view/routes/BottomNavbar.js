@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { 
   FaNewspaper, FaBuildingColumns, FaChartLine, FaGlobe, FaFootball,  
   FaLaptopCode, FaRegStar, FaFilm, FaGamepad, FaTv, FaChevronUp,
-  FaChevronDown, FaVial, FaStethoscope
+  FaChevronDown, FaVial, FaStethoscope, FaWandMagicSparkles
 } from 'react-icons/fa6';
 
 const BottomNavigation = () => {
@@ -47,13 +47,27 @@ const BottomNavigation = () => {
     <div
       className="fixed-bottom border-top shadow-sm"
       style={{
-        height: expanded ? 'auto' : '80px',
+        // 44px briefing row + 80px icon row. Keep in step with the bottom
+        // clearance on .home-container, .search-container and .site-footer.
+        height: expanded ? 'auto' : '124px',
         transition: 'height 0.28s ease-out',
         overflow: 'hidden',
         backgroundColor: 'var(--bs-dark)',
       }}
     >
       <div className="d-flex flex-column">
+        {/* Briefing link – always visible, above the icon rows */}
+        <NavLink
+          to="/briefing"
+          className={({ isActive }) =>
+            `bottom-nav-briefing text-decoration-none ${isActive ? 'text-warning' : 'text-light-var'}`
+          }
+          onClick={() => setExpanded(false)}
+        >
+          <FaWandMagicSparkles size={15} aria-hidden="true" />
+          <span>Today’s Briefing</span>
+        </NavLink>
+
         {/* Extra rows – now with 7 items per row */}
         {expanded &&
           extraRows.map((row, rowIndex) => (

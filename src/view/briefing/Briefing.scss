@@ -1,0 +1,164 @@
+// Same 680px reading column as the headline feed, so switching between the
+// briefing and a section page doesn't shift the layout.
+.briefing-container {
+  max-width: 680px;
+  text-align: left;
+}
+
+.briefing-meta {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.6;
+  margin: 0 0 0.5rem;
+}
+
+.briefing-headline {
+  font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+  font-size: 1.75rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.6rem;
+}
+
+.briefing-dek {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.8;
+  margin: 0 0 1.5rem;
+}
+
+.briefing-paragraph {
+  margin-bottom: 1.6rem;
+
+  > p:first-child {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--body-text);
+    margin: 0 0 0.5rem;
+  }
+}
+
+// Kept small and quiet: the prose is the content, the links are its receipts.
+.briefing-sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.6rem;
+  font-size: 0.78rem;
+  margin: 0;
+
+  .briefing-sources-label {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.5;
+  }
+
+  a {
+    color: var(--text);
+    opacity: 0.8;
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+  }
+}
+
+.briefing-note {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.6;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  margin: 2rem 0 0;
+}
+
+.briefing-empty {
+  padding: 3rem 1rem;
+  text-align: center;
+
+  p {
+    font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text);
+    opacity: 0.6;
+  }
+
+  a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+}
+
+.briefing-archive {
+  margin-top: 2.5rem;
+
+  h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.6;
+    margin: 0 0 0.5rem;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li + li {
+    border-top: 1px solid var(--border);
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.65rem 0;
+    text-decoration: none;
+
+    &:hover .briefing-archive-headline {
+      color: var(--accent);
+    }
+  }
+
+  .briefing-archive-date {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text);
+    opacity: 0.55;
+  }
+
+  .briefing-archive-headline {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+}
+
+@media (max-width: 576px) {
+  .briefing-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .briefing-headline {
+    font-size: 1.5rem;
+  }
+}

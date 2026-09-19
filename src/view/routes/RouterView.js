@@ -5,6 +5,7 @@ import Home from "../Home";
 import PrivacyPolicy from "../legal/PrivacyPolicy";
 import Terms from "../legal/Terms";
 import Search from "../search/Search";
+import Briefing from "../briefing/Briefing";
 import { initAnalytics, trackPageview } from "../../analytics";
 
 function RouterView() {
@@ -24,6 +25,8 @@ function RouterView() {
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/briefing" element={<Briefing />} />
+              <Route path="/briefing/:date" element={<Briefing />} />
               <Route path="/:page" element={<Home />} />
               <Route path="/" element={<Home />} />
 

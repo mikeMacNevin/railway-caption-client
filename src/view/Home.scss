@@ -30,7 +30,7 @@ div.container {
 }
 
 .home-container {
-    padding-bottom: 80px;
+    padding-bottom: 124px; // clears the fixed mobile bottom nav (briefing row + icon row)
     text-decoration: none !important;
 }
 
@@ -43,7 +43,7 @@ div.container {
 
 @media screen and (max-width: 576px) {
     .home-container {
-        padding-bottom: 80px; /* Still clears the bottom 80px due to margin*/
+        padding-bottom: 124px; /* Still clears the fixed bottom nav */
         padding-left: 3px !important;
         padding-right: 6px !important;
     }
