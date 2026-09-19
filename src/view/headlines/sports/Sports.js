@@ -13,6 +13,12 @@ import { useState } from 'react';
 const Sports = ({sportsArticle, currentPage}) => {
 
     const [activeTab, setActiveTab] = useState('news');
+    // 365Scores' widget script only scans the page for [data-widget-type]
+    // divs once, when it first loads - it never re-scans afterward. So once
+    // Scores has been shown, it has to stay mounted (just hidden) rather
+    // than being torn down on every tab switch, or the divs it gets on a
+    // remount would never get picked up and the widgets would render blank.
+    const [scoresMounted, setScoresMounted] = useState(false);
 
     return (
         <div className="container home-container d-flex flex-column pt-1">
@@ -32,7 +38,7 @@ const Sports = ({sportsArticle, currentPage}) => {
                 <button
                     type="button"
                     className={`btn ${activeTab === 'scores' ? 'btn-success' : 'btn-outline-secondary'}`}
-                    onClick={() => setActiveTab('scores')}
+                    onClick={() => { setScoresMounted(true); setActiveTab('scores'); }}
                 >
                   Teams
                 </button>
@@ -41,11 +47,12 @@ const Sports = ({sportsArticle, currentPage}) => {
               </div>
         </div>
          <div>
-          {activeTab === 'scores' ? (
-            <div>
+          {scoresMounted && (
+            <div style={{ display: activeTab === 'scores' ? 'block' : 'none' }}>
               <Scores />
             </div>
-          ) : (
+          )}
+          {activeTab !== 'scores' && (
          <div className="container home-container pt-1 pb-5">
         {sportsArticle.length === 0 ? (
           <EmptyState />
