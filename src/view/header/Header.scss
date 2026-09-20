@@ -82,8 +82,9 @@ max-height: 100px;
         align-items: center;
         width: 100%;
         // The page has almost no side padding on mobile, so without this the
-        // icons sit flush against the screen edges.
-        padding: 0 0.75rem;
+        // icons sit flush against the screen edges - but much more than this
+        // pulls them in toward the logo.
+        padding: 0 0.4rem;
     }
 
     .header-search-link {
