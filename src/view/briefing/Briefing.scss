@@ -1,3 +1,9 @@
+// Type follows the rest of the site: news text (headlines, the summary
+// itself) is Old Standard TT at regular weight in the near-black body color,
+// exactly like .headline-text in Headline.scss; small uppercase system-sans
+// is for labels, like .source-name and .source-time.
+$serif: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+
 // Same 680px reading column as the headline feed, so switching between the
 // briefing and a section page doesn't shift the layout.
 .briefing-container {
@@ -5,10 +11,11 @@
   text-align: left;
 }
 
+// Label style - matches .source-name.
 .briefing-meta {
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text);
   opacity: 0.72;
@@ -16,19 +23,21 @@
 }
 
 .briefing-headline {
-  font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+  font-family: $serif;
   font-size: 1.75rem;
   line-height: 1.25;
-  font-weight: 700;
-  color: var(--text);
+  font-weight: 400;
+  color: var(--body-text);
   margin: 0 0 0.6rem;
 }
 
 .briefing-dek {
-  font-size: 1.05rem;
+  font-family: $serif;
+  font-size: 1.15rem;
   line-height: 1.5;
-  color: var(--text);
-  opacity: 0.8;
+  font-weight: 400;
+  color: var(--body-text);
+  opacity: 0.85;
   margin: 0 0 1.5rem;
 }
 
@@ -36,8 +45,10 @@
   margin-bottom: 1.6rem;
 
   > p:first-child {
-    font-size: 1.05rem;
-    line-height: 1.65;
+    font-family: $serif;
+    font-size: 1.08rem; // same size as .headline-text
+    line-height: 1.6;
+    font-weight: 400;
     color: var(--body-text);
     margin: 0 0 0.5rem;
   }
@@ -54,7 +65,7 @@
 
   .briefing-sources-label {
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--text);
     opacity: 0.72;
@@ -89,7 +100,7 @@
   text-align: center;
 
   p {
-    font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+    font-family: $serif;
     font-size: 1.1rem;
     font-style: italic;
     color: var(--text);
@@ -107,9 +118,9 @@
   margin-top: 2.5rem;
 
   h3 {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--text);
     opacity: 0.72;
@@ -138,17 +149,21 @@
     }
   }
 
+  // Label style - matches .source-time.
   .briefing-archive-date {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.7rem;
+    font-weight: 500;
     color: var(--text);
     opacity: 0.72;
   }
 
+  // A headline, so it gets the headline treatment.
   .briefing-archive-headline {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text);
+    font-family: $serif;
+    font-size: 1.08rem;
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--body-text);
   }
 }
 
