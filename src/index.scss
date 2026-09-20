@@ -10,7 +10,7 @@
 // get sensible dark styling for free, on the same switch as everything
 // else here.
 :root {
-  --bg: #{variables.$light};
+  --bg: #FBFAF6; // light-mode page background - deliberately not $light, which is also the dark-mode text color
   --surface: #FFFFFF;
   --text: #{variables.$primary};
   --body-text: #1a1a1a;
