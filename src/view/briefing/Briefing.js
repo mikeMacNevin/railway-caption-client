@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 
@@ -37,14 +37,41 @@ function sourceLabels(articles) {
   });
 }
 
+// For /briefing routes the client server (server.js) writes the briefing into
+// the page it serves - for crawlers - and also exposes it as
+// window.__BRIEFING__. The first render can start from that instead of
+// showing a loading state and fetching what the page already contains.
+function readPreloaded(pathname) {
+  const pre = typeof window !== "undefined" ? window.__BRIEFING__ : null;
+  return pre && pre.path === pathname.replace(/\/$/, "") ? pre : null;
+}
+
 function Briefing() {
   const { date } = useParams();
-  const [briefing, setBriefing] = useState(null);
-  const [archive, setArchive] = useState([]);
-  const [status, setStatus] = useState("loading"); // loading | ok | missing | error
+  const { pathname } = useLocation();
+
+  // Read once, on the very first render; consumed by the effect below so a
+  // later navigation to another briefing fetches normally.
+  const preloadedRef = useRef(undefined);
+  if (preloadedRef.current === undefined) preloadedRef.current = readPreloaded(pathname);
+  const preloaded = preloadedRef.current;
+
+  const [briefing, setBriefing] = useState(preloaded ? preloaded.briefing : null);
+  const [archive, setArchive] = useState(preloaded ? preloaded.archive : []);
+  const [status, setStatus] = useState(preloaded ? "ok" : "loading"); // loading | ok | missing | error
   const [showLoadingScreen, setShowLoadingScreen] = useState(false);
+  const hadPreloadedArchive = useRef(Boolean(preloaded && preloaded.archive.length > 0));
 
   useEffect(() => {
+    if (preloadedRef.current) {
+      // First render already has this briefing - nothing to fetch. Clear the
+      // page-level copy too, so coming back to /briefing later in this tab
+      // fetches a fresh one instead of reusing this (by then stale) one.
+      preloadedRef.current = null;
+      window.__BRIEFING__ = null;
+      return undefined;
+    }
+
     window.scrollTo(0, 0);
     setStatus("loading");
     setBriefing(null);
@@ -70,6 +97,7 @@ function Briefing() {
   }, [date]);
 
   useEffect(() => {
+    if (hadPreloadedArchive.current) return;
     axios
       .get(`${API_URL}/api/summary/archive`)
       .then((response) => setArchive(response.data.briefings || []))

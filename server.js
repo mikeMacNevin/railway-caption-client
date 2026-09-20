@@ -17,6 +17,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { PAGE_META, SITE_URL, DEFAULT_IMAGE } = require('./src/seoMeta');
+const briefingPage = require('./briefingPage');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -39,7 +40,7 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function renderSeoBlock(meta, canonicalUrl) {
+function renderSeoBlock(meta, canonicalUrl, { ogType = 'website', extraHead = '' } = {}) {
   const title = `${meta.title} | caption.news`;
   const description = escapeHtml(meta.description);
   const safeTitle = escapeHtml(title);
@@ -50,7 +51,7 @@ function renderSeoBlock(meta, canonicalUrl) {
     <meta property="og:title" content="${safeTitle}" />
     <meta property="og:description" content="${description}" />
     <meta property="og:url" content="${canonicalUrl}" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="${ogType}" />
     <meta property="og:site_name" content="caption.news" />
     <meta property="og:image" content="${DEFAULT_IMAGE}" />
     <meta property="og:image:width" content="1200" />
@@ -58,7 +59,7 @@ function renderSeoBlock(meta, canonicalUrl) {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${safeTitle}" />
     <meta name="twitter:description" content="${description}" />
-    <meta name="twitter:image" content="${DEFAULT_IMAGE}" />`;
+    <meta name="twitter:image" content="${DEFAULT_IMAGE}" />${extraHead}`;
 }
 
 let warnedNoMatch = false;
@@ -79,6 +80,55 @@ function renderHtmlForPath(requestPath) {
   return indexTemplate.replace(SEO_BLOCK_RE, renderSeoBlock(meta, canonicalUrl));
 }
 
+// /briefing and /briefing/YYYY-MM-DD. Unlike every other route these have
+// real content to hand crawlers, so the briefing text goes into the HTML
+// itself (see briefingPage.js), along with per-briefing title/description/
+// structured data. If the API is unreachable this returns null and the route
+// is served exactly like any other - the client-rendered page still works.
+const BRIEFING_ROUTE_RE = /^\/briefing(?:\/(\d{4}-\d{2}-\d{2}))?\/?$/;
+
+async function renderBriefingHtmlForPath(requestPath) {
+  const match = requestPath.match(BRIEFING_ROUTE_RE);
+  if (!match) return null;
+
+  const loaded = await briefingPage.loadBriefing(match[1]);
+  if (!loaded) return null;
+
+  const { briefing } = loaded;
+  const routePath = match[1] ? `/briefing/${match[1]}` : '/briefing';
+  const canonicalUrl = `${SITE_URL}${routePath}`;
+  const seo = renderSeoBlock(
+    { title: briefing.headline, description: briefing.dek },
+    canonicalUrl,
+    {
+      ogType: 'article',
+      extraHead: `\n    <script type="application/ld+json">${briefingPage.renderJsonLd(briefing, canonicalUrl)}</script>` +
+        `\n    ${briefingPage.renderPreload(routePath, loaded)}`,
+    }
+  );
+
+  return indexTemplate
+    .replace(SEO_BLOCK_RE, () => seo)
+    .replace('<div id="root"></div>', () => `<div id="root">${briefingPage.renderBriefingHtml(loaded)}</div>`);
+}
+
+// The static sitemap plus one entry per dated briefing, so the archive pages
+// are discoverable. Registered before express.static so it wins over the
+// plain build/sitemap.xml.
+let sitemapCache = { xml: null, builtAt: 0 };
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    if (!sitemapCache.xml || Date.now() - sitemapCache.builtAt > 60 * 60 * 1000) {
+      const base = fs.readFileSync(path.join(buildDir, 'sitemap.xml'), 'utf8');
+      sitemapCache = { xml: await briefingPage.buildSitemap(base), builtAt: Date.now() };
+    }
+    res.set('Content-Type', 'application/xml').send(sitemapCache.xml);
+  } catch (err) {
+    console.error('sitemap.xml failed:', err.message);
+    res.sendFile(path.join(buildDir, 'sitemap.xml'));
+  }
+});
+
 // Serve real static assets (JS/CSS/images/manifest/etc). index:false stops
 // this from auto-serving build/index.html for "/" so our route below - which
 // injects per-page meta - handles every HTML request instead.
@@ -87,8 +137,16 @@ app.use(express.static(buildDir, { index: false }));
 // Everything else is a client-side (React Router) route - hand back
 // index.html with the right <head> for that route, and let the browser's
 // React app take over routing from there.
-app.get('*', (req, res) => {
+app.get('*', async (req, res) => {
   res.set('Content-Type', 'text/html');
+  try {
+    const briefingHtml = await renderBriefingHtmlForPath(req.path);
+    if (briefingHtml) return res.send(briefingHtml);
+  } catch (err) {
+    // Never let a problem rendering the briefing take the page down - fall
+    // through to the normal shell.
+    console.error('briefing render failed:', err.message);
+  }
   res.send(renderHtmlForPath(req.path));
 });
 
