@@ -102,7 +102,7 @@ function renderBriefingHtml({ briefing, archive }) {
     earlier.map((item) =>
       `<li><a href="/briefing/${escapeHtml(item.date)}"><span class="briefing-archive-date">${escapeHtml(formatDate(item.date))}</span>` +
       `<span class="briefing-archive-headline">${escapeHtml(item.headline)}</span></a></li>`
-    ).join('') + `</ul></nav>`;
+    ).join('') + `</ul><a class="briefing-archive-all" href="/briefing/archive">All briefings</a></nav>`;
 
   return `<div class="container briefing-container pt-1">` +
     `<div class="container-fluid px-0"><h2 class="current-page">Daily News Briefing</h2></div>` +
@@ -133,17 +133,45 @@ function renderJsonLd(briefing, canonicalUrl) {
   }).replace(/</g, '\\u003c');
 }
 
-// Data the React page starts from, so it doesn't refetch and flash empty
-// after the server-rendered copy is replaced. `<` is escaped so nothing in
-// the briefing text can close the surrounding <script> tag.
-function renderPreload(path, payload) {
-  // U+2028/2029 are valid in JSON but were line terminators in JS before
-  // ES2019 - strip them rather than depend on the engine.
-  const json = JSON.stringify({ path, ...payload })
+// `<` is escaped so nothing in the data can close the surrounding <script>
+// tag. U+2028/2029 are valid in JSON but were line terminators in JS before
+// ES2019 - strip them rather than depend on the engine.
+function safeJson(value) {
+  return JSON.stringify(value)
     .replace(/</g, '\\u003c')
     .split(String.fromCharCode(0x2028)).join('')
     .split(String.fromCharCode(0x2029)).join('');
-  return `<script>window.__BRIEFING__=${json};</script>`;
+}
+
+// Data the React page starts from, so it doesn't refetch and flash empty
+// after the server-rendered copy is replaced.
+function renderPreload(path, payload) {
+  return `<script>window.__BRIEFING__=${safeJson({ path, ...payload })};</script>`;
+}
+
+// /briefing/archive: every briefing, newest first, so each dated page is
+// linked from somewhere crawlers can reach - not only the sitemap.
+async function loadArchive() {
+  const archive = await getJson('/api/summary/archive');
+  return archive && Array.isArray(archive.briefings) ? archive.briefings : null;
+}
+
+function renderArchiveHtml(briefings) {
+  const items = briefings.length === 0
+    ? `<p class="briefing-empty-note">No briefings yet — check back soon.</p>`
+    : `<ul>` + briefings.map((item) =>
+      `<li><a href="/briefing/${escapeHtml(item.date)}"><span class="briefing-archive-date">${escapeHtml(formatDate(item.date))}</span>` +
+      `<span class="briefing-archive-headline">${escapeHtml(item.headline)}</span></a></li>`
+    ).join('') + `</ul>`;
+
+  return `<div class="container briefing-container pt-1">` +
+    `<div class="container-fluid px-0"><h2 class="current-page">Briefing Archive</h2></div>` +
+    `<nav class="briefing-archive briefing-archive-full" aria-label="All briefings">${items}</nav>` +
+    `<p class="briefing-archive-back"><a href="/briefing">Today’s briefing</a></p></div>`;
+}
+
+function renderArchivePreload(briefings) {
+  return `<script>window.__BRIEFING_ARCHIVE__=${safeJson(briefings)};</script>`;
 }
 
 // Adds each dated briefing to the sitemap so search engines can find the
@@ -156,4 +184,8 @@ async function buildSitemap(baseXml) {
   return baseXml.replace('</urlset>', `${entries}</urlset>`);
 }
 
-module.exports = { loadBriefing, renderBriefingHtml, renderJsonLd, renderPreload, buildSitemap, escapeHtml };
+module.exports = {
+  loadBriefing, renderBriefingHtml, renderJsonLd, renderPreload,
+  loadArchive, renderArchiveHtml, renderArchivePreload,
+  buildSitemap, escapeHtml,
+};

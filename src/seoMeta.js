@@ -26,7 +26,8 @@ const PAGE_META = {
   health:      { title: 'Health Headlines',    description: 'Medical news, wellness tips, and health industry updates.' },
   science:     { title: 'Science Headlines',   description: 'Scientific discoveries, research news, and technology breakthroughs.' },
   briefing:    { title: 'Daily News Briefing', description: 'A short written overview of today’s top news, summarized by AI from the day’s headlines, with links to the original reporting.' },
-  search:      { title: 'Search',              description: 'Search headlines from across all of caption.news’s sources.' },
+  briefingArchive: { title: 'Briefing Archive', description: 'Every past daily news briefing from caption.news, newest first, each with links to the original reporting.' },
+  search:      { title: 'Search',             description: 'Search headlines from across all of caption.news’s sources.' },
 };
 
 module.exports = { PAGE_META, SITE_URL, DEFAULT_IMAGE };

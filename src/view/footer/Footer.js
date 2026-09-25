@@ -8,6 +8,7 @@ function Footer() {
                 <span className="site-footer-copy">&copy; {new Date().getFullYear()} caption.news</span>
                 <nav className="site-footer-links">
                     <a href="mailto:privacy@caption.news?subject=Report%20an%20issue">Report an Issue</a>
+                    <Link to="/briefing/archive">Briefing Archive</Link>
                     <Link to="/privacy">Privacy Policy</Link>
                     <Link to="/terms">Terms of Service</Link>
                 </nav>

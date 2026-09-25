@@ -105,8 +105,10 @@ function Briefing() {
   }, []);
 
   const meta = PAGE_META.briefing;
-  const canonical = `https://www.caption.news/briefing${date ? `/${date}` : ""}`;
   const currentDate = briefing ? briefing.date : date;
+  // /briefing shows the same text as today's dated page, so both point at the
+  // dated URL (matches what server.js writes into the served HTML).
+  const canonical = `https://www.caption.news/briefing${currentDate ? `/${currentDate}` : ""}`;
   const earlier = archive.filter((item) => item.date !== currentDate).slice(0, 7);
 
   if (status === "loading") {
@@ -202,6 +204,7 @@ function Briefing() {
               </li>
             ))}
           </ul>
+          <Link className="briefing-archive-all" to="/briefing/archive">All briefings</Link>
         </nav>
       )}
     </div>

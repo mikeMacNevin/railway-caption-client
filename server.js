@@ -96,7 +96,9 @@ async function renderBriefingHtmlForPath(requestPath) {
 
   const { briefing } = loaded;
   const routePath = match[1] ? `/briefing/${match[1]}` : '/briefing';
-  const canonicalUrl = `${SITE_URL}${routePath}`;
+  // /briefing is "whatever is latest today", which is the same text as the
+  // dated page - point search engines at the dated URL so they index one copy.
+  const canonicalUrl = `${SITE_URL}/briefing/${briefing.date}`;
   const seo = renderSeoBlock(
     { title: briefing.headline, description: briefing.dek },
     canonicalUrl,
@@ -110,6 +112,25 @@ async function renderBriefingHtmlForPath(requestPath) {
   return indexTemplate
     .replace(SEO_BLOCK_RE, () => seo)
     .replace('<div id="root"></div>', () => `<div id="root">${briefingPage.renderBriefingHtml(loaded)}</div>`);
+}
+
+const ARCHIVE_ROUTE_RE = /^\/briefing\/archive\/?$/;
+
+async function renderArchiveHtmlForPath(requestPath) {
+  if (!ARCHIVE_ROUTE_RE.test(requestPath)) return null;
+
+  const briefings = await briefingPage.loadArchive();
+  if (!briefings) return null;
+
+  const seo = renderSeoBlock(
+    PAGE_META.briefingArchive,
+    `${SITE_URL}/briefing/archive`,
+    { extraHead: `\n    ${briefingPage.renderArchivePreload(briefings)}` }
+  );
+
+  return indexTemplate
+    .replace(SEO_BLOCK_RE, () => seo)
+    .replace('<div id="root"></div>', () => `<div id="root">${briefingPage.renderArchiveHtml(briefings)}</div>`);
 }
 
 // The static sitemap plus one entry per dated briefing, so the archive pages
@@ -140,6 +161,8 @@ app.use(express.static(buildDir, { index: false }));
 app.get('*', async (req, res) => {
   res.set('Content-Type', 'text/html');
   try {
+    const archiveHtml = await renderArchiveHtmlForPath(req.path);
+    if (archiveHtml) return res.send(archiveHtml);
     const briefingHtml = await renderBriefingHtmlForPath(req.path);
     if (briefingHtml) return res.send(briefingHtml);
   } catch (err) {
