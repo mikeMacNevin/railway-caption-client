@@ -22,6 +22,19 @@ const { renderBriefingImage } = require('./ogImage');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// caption.news -> www.caption.news, so every page has one address. Only the
+// bare apex host is redirected; localhost and the *.up.railway.app domain
+// are left alone.
+const CANONICAL_HOST = new URL(SITE_URL).hostname;
+const APEX_HOST = CANONICAL_HOST.replace(/^www\./, '');
+app.use((req, res, next) => {
+  const host = String(req.headers.host || '').split(':')[0].toLowerCase();
+  if (host === APEX_HOST && host !== CANONICAL_HOST) {
+    return res.redirect(301, `${SITE_URL}${req.originalUrl}`);
+  }
+  next();
+});
 const buildDir = path.join(__dirname, 'build');
 
 // Read the built index.html once at startup and keep it in memory - it
