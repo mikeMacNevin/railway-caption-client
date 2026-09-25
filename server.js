@@ -18,6 +18,7 @@ const path = require('path');
 const fs = require('fs');
 const { PAGE_META, SITE_URL, DEFAULT_IMAGE } = require('./src/seoMeta');
 const briefingPage = require('./briefingPage');
+const { renderBriefingImage } = require('./ogImage');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -40,7 +41,7 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function renderSeoBlock(meta, canonicalUrl, { ogType = 'website', extraHead = '' } = {}) {
+function renderSeoBlock(meta, canonicalUrl, { ogType = 'website', extraHead = '', image = DEFAULT_IMAGE } = {}) {
   const title = `${meta.title} | caption.news`;
   const description = escapeHtml(meta.description);
   const safeTitle = escapeHtml(title);
@@ -48,18 +49,19 @@ function renderSeoBlock(meta, canonicalUrl, { ogType = 'website', extraHead = ''
   return `<title>${safeTitle}</title>
     <meta name="description" content="${description}" />
     <link rel="canonical" href="${canonicalUrl}" />
+    <link rel="alternate" type="application/rss+xml" title="caption.news Daily News Briefing" href="${SITE_URL}/briefing/feed.xml" />
     <meta property="og:title" content="${safeTitle}" />
     <meta property="og:description" content="${description}" />
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:type" content="${ogType}" />
     <meta property="og:site_name" content="caption.news" />
-    <meta property="og:image" content="${DEFAULT_IMAGE}" />
+    <meta property="og:image" content="${image}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${safeTitle}" />
     <meta name="twitter:description" content="${description}" />
-    <meta name="twitter:image" content="${DEFAULT_IMAGE}" />${extraHead}`;
+    <meta name="twitter:image" content="${image}" />${extraHead}`;
 }
 
 let warnedNoMatch = false;
@@ -104,6 +106,7 @@ async function renderBriefingHtmlForPath(requestPath) {
     canonicalUrl,
     {
       ogType: 'article',
+      image: `${SITE_URL}/og/briefing/${briefing.date}.png`,
       extraHead: `\n    <script type="application/ld+json">${briefingPage.renderJsonLd(briefing, canonicalUrl)}</script>` +
         `\n    ${briefingPage.renderPreload(routePath, loaded)}`,
     }
@@ -147,6 +150,36 @@ app.get('/sitemap.xml', async (req, res) => {
   } catch (err) {
     console.error('sitemap.xml failed:', err.message);
     res.sendFile(path.join(buildDir, 'sitemap.xml'));
+  }
+});
+
+// Share image for a dated briefing, used as og:image / twitter:image.
+app.get('/og/briefing/:date.png', async (req, res) => {
+  const { date } = req.params;
+  try {
+    const loaded = /^\d{4}-\d{2}-\d{2}$/.test(date) ? await briefingPage.loadBriefing(date) : null;
+    if (!loaded) return res.status(404).send('Not found');
+    const png = renderBriefingImage(loaded.briefing);
+    res.set({ 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=3600' }).send(png);
+  } catch (err) {
+    console.error('og image failed:', err.message);
+    res.redirect(302, DEFAULT_IMAGE);
+  }
+});
+
+// RSS feed of the latest briefings.
+let feedCache = { xml: null, builtAt: 0 };
+app.get('/briefing/feed.xml', async (req, res) => {
+  try {
+    if (!feedCache.xml || Date.now() - feedCache.builtAt > 10 * 60 * 1000) {
+      const xml = await briefingPage.buildFeed();
+      if (!xml) return res.status(404).send('No briefings yet');
+      feedCache = { xml, builtAt: Date.now() };
+    }
+    res.set('Content-Type', 'application/rss+xml; charset=utf-8').send(feedCache.xml);
+  } catch (err) {
+    console.error('feed.xml failed:', err.message);
+    res.status(500).send('Feed unavailable');
   }
 });
 

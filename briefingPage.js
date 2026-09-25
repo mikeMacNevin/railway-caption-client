@@ -174,6 +174,50 @@ function renderArchivePreload(briefings) {
   return `<script>window.__BRIEFING_ARCHIVE__=${safeJson(briefings)};</script>`;
 }
 
+// RSS 2.0 feed of the latest briefings, full text included so a reader or
+// newsletter tool can show them without a click-through.
+const FEED_ITEMS = 15;
+
+async function buildFeed() {
+  const archive = await getJson('/api/summary/archive');
+  const dates = ((archive && archive.briefings) || []).slice(0, FEED_ITEMS).map((item) => item.date);
+  const briefings = (await Promise.all(dates.map((date) => getJson(`/api/summary/${date}`))))
+    .filter((briefing) => briefing && Array.isArray(briefing.paragraphs));
+  if (briefings.length === 0) return null;
+
+  const items = briefings.map((briefing) => {
+    const url = `${SITE_URL}/briefing/${briefing.date}`;
+    const body = briefing.paragraphs.map((paragraph) => {
+      const sources = paragraph.articles
+        .map((article) => `<a href="${escapeHtml(article.url)}">${escapeHtml(article.source)}</a>`)
+        .join(', ');
+      return `<p>${escapeHtml(paragraph.text)}</p><p><small>Sources: ${sources}</small></p>`;
+    }).join('');
+    return `    <item>
+      <title>${escapeHtml(briefing.headline)}</title>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
+      <pubDate>${new Date(briefing.generatedAt).toUTCString()}</pubDate>
+      <description>${escapeHtml(briefing.dek)}</description>
+      <content:encoded><![CDATA[${body}]]></content:encoded>
+    </item>`;
+  }).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>caption.news Daily News Briefing</title>
+    <link>${SITE_URL}/briefing/archive</link>
+    <atom:link href="${SITE_URL}/briefing/feed.xml" rel="self" type="application/rss+xml" />
+    <description>A short written overview of the day’s top news, summarized by AI from the day’s headlines, with links to the original reporting.</description>
+    <language>en-us</language>
+    <lastBuildDate>${new Date(briefings[0].generatedAt).toUTCString()}</lastBuildDate>
+${items}
+  </channel>
+</rss>
+`;
+}
+
 // Adds each dated briefing to the sitemap so search engines can find the
 // archive pages. Falls back to the plain static sitemap if the API is down.
 async function buildSitemap(baseXml) {
@@ -187,5 +231,5 @@ async function buildSitemap(baseXml) {
 module.exports = {
   loadBriefing, renderBriefingHtml, renderJsonLd, renderPreload,
   loadArchive, renderArchiveHtml, renderArchivePreload,
-  buildSitemap, escapeHtml,
+  buildFeed, buildSitemap, escapeHtml,
 };

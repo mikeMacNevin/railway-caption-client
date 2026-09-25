@@ -9,6 +9,7 @@ function Footer() {
                 <nav className="site-footer-links">
                     <a href="mailto:privacy@caption.news?subject=Report%20an%20issue">Report an Issue</a>
                     <Link to="/briefing/archive">Briefing Archive</Link>
+                    <a href="/briefing/feed.xml">RSS</a>
                     <Link to="/privacy">Privacy Policy</Link>
                     <Link to="/terms">Terms of Service</Link>
                 </nav>

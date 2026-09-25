@@ -109,6 +109,7 @@ function Briefing() {
   // /briefing shows the same text as today's dated page, so both point at the
   // dated URL (matches what server.js writes into the served HTML).
   const canonical = `https://www.caption.news/briefing${currentDate ? `/${currentDate}` : ""}`;
+  const shareImage = status === "ok" ? `https://www.caption.news/og/briefing/${briefing.date}.png` : DEFAULT_IMAGE;
   const earlier = archive.filter((item) => item.date !== currentDate).slice(0, 7);
 
   if (status === "loading") {
@@ -128,11 +129,11 @@ function Briefing() {
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonical} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content={DEFAULT_IMAGE} />
+        <meta property="og:image" content={shareImage} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={DEFAULT_IMAGE} />
+        <meta name="twitter:image" content={shareImage} />
       </Helmet>
 
       <div className="container-fluid px-0">
