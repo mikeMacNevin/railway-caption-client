@@ -6,9 +6,18 @@ $serif: 'Old Standard TT', Georgia, 'Times New Roman', serif;
 
 // Same 680px reading column as the headline feed, so switching between the
 // briefing and a section page doesn't shift the layout.
-.briefing-container {
+// Doubled selector so this beats Bootstrap's per-breakpoint .container
+// max-widths, which would otherwise widen it on large screens.
+.container.briefing-container {
   max-width: 680px;
   text-align: left;
+}
+
+// The section-title underline is for the headline pages; the briefing keeps
+// its accent color for the source links instead.
+.briefing-container h2.current-page {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 // Label style - matches .source-name.
@@ -72,15 +81,14 @@ $serif: 'Old Standard TT', Georgia, 'Times New Roman', serif;
   }
 
   a {
-    color: var(--text);
-    opacity: 0.8;
+    color: var(--accent);
     text-decoration: underline;
-    text-decoration-color: var(--border-strong);
+    text-decoration-color: var(--accent);
     text-underline-offset: 2px;
 
     &:hover {
-      color: var(--accent);
-      opacity: 1;
+      color: var(--text);
+      text-decoration-color: var(--text);
     }
   }
 }
