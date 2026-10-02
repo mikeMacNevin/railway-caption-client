@@ -80,6 +80,32 @@
   }
 }
 
+// Tablet/desktop: never truncate a source name. The column is wide enough
+// for most names on one line; the few longest (e.g. "National Geographic
+// Science") wrap to a second line rather than forcing every row to reserve
+// ~280px of headline space for them.
+@media (min-width: 768px) {
+  .source-badge {
+    flex-basis: 10.5rem;
+    padding-right: 0.75rem;
+  }
+
+  .source-badge-top {
+    align-items: flex-start;
+  }
+
+  .source-icon {
+    margin-top: 0.2em; // sits on the first line when the name wraps
+  }
+
+  .source-name {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    line-height: 1.25;
+  }
+}
+
 @media (max-width: 576px) {
   .headline-item {
     padding: 0.4rem 0;
