@@ -48,3 +48,11 @@ html, div#root, body {
   background-color: var(--bg) !important;
   color: var(--text) !important;
 }
+
+// Nearly every size in the app is in rem, so bumping the root size scales
+// all text up together on tablet/desktop without touching each component.
+@media (min-width: 768px) {
+  html {
+    font-size: 112.5%;
+  }
+}

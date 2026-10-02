@@ -40,9 +40,10 @@
 }
 
 .source-name {
+  font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--body-text);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -69,11 +70,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   flex: 1;
-  font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
   font-size: 1.3rem;
   line-height: 1.4;
   font-weight: 400;
-  color: var(--body-text);
+  color: var(--text);
 
   &:hover {
     color: var(--accent);

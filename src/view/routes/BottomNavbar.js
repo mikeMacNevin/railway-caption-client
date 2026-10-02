@@ -81,7 +81,7 @@ const BottomNavigation = () => {
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) =>
-                    `flex-fill d-flex flex-column justify-content-center align-items-center text-decoration-none ${
+                    `bottom-nav-item d-flex flex-column justify-content-center align-items-center text-decoration-none ${
                       isActive ? 'text-warning' : 'text-light-var'
                     }`
                   }
@@ -105,7 +105,7 @@ const BottomNavigation = () => {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex-fill d-flex flex-column justify-content-center align-items-center text-decoration-none  ${
+                `bottom-nav-item d-flex flex-column justify-content-center align-items-center text-decoration-none  ${
                   isActive ? 'text-warning' : 'text-light-var'
                 }`
               }
@@ -122,7 +122,7 @@ const BottomNavigation = () => {
           {/* More Button */}
           {extraItems.length > 0 && (
             <div
-              className={`flex-fill d-flex flex-column justify-content-center align-items-center text-decoration-none cursor-pointer ps-2 pe-2 ${
+              className={`bottom-nav-item d-flex flex-column justify-content-center align-items-center text-decoration-none cursor-pointer ${
                 expanded ? 'text-warning' : 'text-light-var'
               }`}
               onClick={toggleExpand}

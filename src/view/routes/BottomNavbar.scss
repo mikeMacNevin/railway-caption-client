@@ -31,6 +31,14 @@
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
+// Equal-width slots (flex-basis 0) instead of Bootstrap's flex-fill, which
+// sizes each slot by its label - that made the expanded row's icons drift
+// out of line with the main row's, since both rows have 7 slots.
+.bottom-nav-item {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
