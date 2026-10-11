@@ -176,7 +176,19 @@ function renderArchivePreload(briefings) {
 
 // RSS 2.0 feed of the latest briefings, full text included so a reader or
 // newsletter tool can show them without a click-through.
-const FEED_ITEMS = 15;
+//
+// Also shaped to Flipboard's RSS guidelines (about.flipboard.com/rss-guidelines):
+// 20+ items, an author (dc:creator), a distinct image per item (enclosure -
+// each day's share image, 1200x630) and a 300+ character excerpt.
+const FEED_ITEMS = 30;
+const FEED_AUTHOR = 'caption.news';
+
+// The dek alone is ~150 characters; adding the opening paragraph gives feed
+// readers a fuller excerpt.
+function feedExcerpt(briefing) {
+  const opening = briefing.paragraphs[0] && briefing.paragraphs[0].text;
+  return opening ? `${briefing.dek} ${opening}` : briefing.dek;
+}
 
 async function buildFeed() {
   const archive = await getJson('/api/summary/archive');
@@ -198,13 +210,15 @@ async function buildFeed() {
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <pubDate>${new Date(briefing.generatedAt).toUTCString()}</pubDate>
-      <description>${escapeHtml(briefing.dek)}</description>
+      <description>${escapeHtml(feedExcerpt(briefing))}</description>
+      <dc:creator>${FEED_AUTHOR}</dc:creator>
+      <enclosure url="${SITE_URL}/og/briefing/${briefing.date}.png" type="image/png" length="0" />
       <content:encoded><![CDATA[${body}]]></content:encoded>
     </item>`;
   }).join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>caption.news Daily News Briefing</title>
     <link>${SITE_URL}/briefing/archive</link>
