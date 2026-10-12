@@ -245,5 +245,5 @@ async function buildSitemap(baseXml) {
 module.exports = {
   loadBriefing, renderBriefingHtml, renderJsonLd, renderPreload,
   loadArchive, renderArchiveHtml, renderArchivePreload,
-  buildFeed, buildSitemap, escapeHtml,
+  buildFeed, buildSitemap, escapeHtml, getJson, safeJson,
 };

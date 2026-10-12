@@ -1,0 +1,74 @@
+// The daily overview box above a category page's headlines. Same 680px
+// column as .headline-feed so its edges line up with the list below it.
+.category-overview {
+  max-width: 680px;
+  margin: 0 auto 1.25rem;
+  padding: 0.9rem 1rem 0.4rem;
+  text-align: left;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  background-color: rgba(89, 165, 216, 0.07);
+}
+
+[data-bs-theme="dark"] .category-overview {
+  background-color: rgba(89, 165, 216, 0.1);
+}
+
+// Label style - matches .source-name / .briefing-meta.
+.category-overview-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.85;
+  margin: 0 0 0.35rem;
+}
+
+.category-overview-headline {
+  font-family: 'Old Standard TT', Georgia, 'Times New Roman', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text);
+  margin: 0 0 0.5rem;
+}
+
+.category-overview-paragraph {
+  margin-bottom: 0.6rem;
+
+  > p {
+    margin: 0;
+  }
+
+  > p:first-child {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--body-text);
+    margin-bottom: 0.2rem;
+  }
+}
+
+.category-overview-sources {
+  font-size: 0.78rem;
+  color: var(--body-text);
+  opacity: 0.8;
+
+  a {
+    color: var(--accent);
+  }
+}
+
+@media (max-width: 576px) {
+  .category-overview {
+    padding: 0.75rem 0.8rem 0.3rem;
+  }
+
+  .category-overview-headline {
+    font-size: 1.15rem;
+  }
+
+  .category-overview-paragraph > p:first-child {
+    font-size: 0.95rem;
+  }
+}

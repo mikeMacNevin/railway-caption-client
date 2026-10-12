@@ -3,6 +3,7 @@
 import Headline from "../Headline";
 import Scores from "./Scores/Scores";
 import EmptyState from "../../EmptyState";
+import CategoryOverview from "../../CategoryOverview";
 import { Row, Col } from 'react-bootstrap'; // if not already using react-bootstrap
 
 import './sports.scss'
@@ -23,6 +24,7 @@ const Sports = ({sportsArticle, currentPage}) => {
     return (
         <div className="container home-container d-flex flex-column pt-1">
             <h2 className="current-page">{currentPage}</h2>
+            <CategoryOverview page="sports" />
 
             <div className="container d-flex flex-row justify-content-end align-items-center px-0">
                 {/* Button Group */}

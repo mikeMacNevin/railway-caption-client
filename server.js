@@ -18,6 +18,7 @@ const path = require('path');
 const fs = require('fs');
 const { PAGE_META, SITE_URL, DEFAULT_IMAGE } = require('./src/seoMeta');
 const briefingPage = require('./briefingPage');
+const categoryPage = require('./categoryPage');
 const { renderBriefingImage } = require('./ogImage');
 
 const app = express();
@@ -130,6 +131,23 @@ async function renderBriefingHtmlForPath(requestPath) {
     .replace('<div id="root"></div>', () => `<div id="root">${briefingPage.renderBriefingHtml(loaded)}</div>`);
 }
 
+// /celebs, /sports, ... - the day's category overview and headline list go
+// into the HTML (see categoryPage.js), with the usual per-page meta.
+async function renderCategoryHtmlForPath(requestPath) {
+  const page = categoryPage.categoryForPath(requestPath);
+  if (!page) return null;
+
+  const loaded = await categoryPage.loadCategory(page);
+  if (!loaded) return null;
+
+  const seo = renderSeoBlock(PAGE_META[page], `${SITE_URL}/${page}`, {
+    extraHead: `\n    ${categoryPage.renderCategoryPreload(loaded)}`,
+  });
+  return indexTemplate
+    .replace(SEO_BLOCK_RE, () => seo)
+    .replace('<div id="root"></div>', () => `<div id="root">${categoryPage.renderCategoryHtml(loaded)}</div>`);
+}
+
 const ARCHIVE_ROUTE_RE = /^\/briefing\/archive\/?$/;
 
 async function renderArchiveHtmlForPath(requestPath) {
@@ -211,10 +229,12 @@ app.get('*', async (req, res) => {
     if (archiveHtml) return res.send(archiveHtml);
     const briefingHtml = await renderBriefingHtmlForPath(req.path);
     if (briefingHtml) return res.send(briefingHtml);
+    const categoryHtml = await renderCategoryHtmlForPath(req.path);
+    if (categoryHtml) return res.send(categoryHtml);
   } catch (err) {
-    // Never let a problem rendering the briefing take the page down - fall
-    // through to the normal shell.
-    console.error('briefing render failed:', err.message);
+    // Never let a problem rendering the briefing or a category page take the
+    // page down - fall through to the normal shell.
+    console.error('page render failed:', err.message);
   }
   res.send(renderHtmlForPath(req.path));
 });

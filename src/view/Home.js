@@ -1,5 +1,5 @@
 //React
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -12,13 +12,28 @@ import Finance from "./headlines/finance/Finance";
 import Sports from "./headlines/sports/Sports";
 import LoadingScreen from "./loading/LoadingScreen";
 import EmptyState from "./EmptyState";
+import CategoryOverview from "./CategoryOverview";
 import { PAGE_META, DEFAULT_IMAGE } from "../seoMeta";
 import './Home.scss'
 
+// server.js writes a category page's headlines into its initial HTML (see
+// categoryPage.js) and leaves them in window.__CATEGORY_ARTICLES__. Starting
+// from that copy means the server-rendered list isn't blanked out and
+// refetched the moment React takes over. Used once, for the first page only.
+let preloadedArticles = typeof window !== "undefined" ? window.__CATEGORY_ARTICLES__ : null;
+
+function takePreloadedArticles(page) {
+  const pre = preloadedArticles;
+  preloadedArticles = null;
+  return pre && pre.page === page ? pre.articles : null;
+}
+
 function Home () {
   const { page } = useParams();
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [initialArticles] = useState(() => takePreloadedArticles(page));
+  const [data, setData] = useState(initialArticles || []);
+  const [isLoading, setIsLoading] = useState(!initialArticles);
+  const skipFirstFetch = useRef(Boolean(initialArticles));
   const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
   const meta = PAGE_META[page] || PAGE_META['home'];
@@ -33,6 +48,11 @@ function Home () {
 
   useEffect(() => {
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+    if (skipFirstFetch.current) {
+      skipFirstFetch.current = false;
+      return undefined;
+    }
 
     window.scrollTo(0, 0);
     setData([]);
@@ -118,6 +138,7 @@ function Home () {
               <h2 className="current-page">{sectionTitle}</h2>
             </div>
           )}
+          {page && <CategoryOverview page={page} />}
 
             {data.length === 0 ? (
               <EmptyState />
