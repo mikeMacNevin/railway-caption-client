@@ -28,6 +28,18 @@ function takePreloadedArticles(page) {
   return pre && pre.page === page ? pre.articles : null;
 }
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+function articlesEndpoint(page) {
+  return page === undefined ? `${API_URL}/api/articles/home` : `${API_URL}/api/articles/${page}`;
+}
+
+// An open page checks for fresher headlines on its own - the Front Page is
+// re-scraped every 10 minutes and its API cache lasts 2 (server/routes/
+// articles.js), so without this a tab left open never changes. New stories
+// aren't dropped in under the reader; a button offers them instead.
+const REFRESH_INTERVAL_MS = 2 * 60 * 1000;
+
 function Home () {
   const { page } = useParams();
   const [initialArticles] = useState(() => takePreloadedArticles(page));
@@ -35,6 +47,8 @@ function Home () {
   const [isLoading, setIsLoading] = useState(!initialArticles);
   const skipFirstFetch = useRef(Boolean(initialArticles));
   const [showLoadingScreen, setShowLoadingScreen] = useState(false);
+  // A fresher list waiting behind the "N new headlines" button.
+  const [pending, setPending] = useState(null);
 
   const meta = PAGE_META[page] || PAGE_META['home'];
   const pageTitle = `${meta.title} | caption.news`;
@@ -47,7 +61,7 @@ function Home () {
   const LOADING_SCREEN_DELAY_MS = 500;
 
   useEffect(() => {
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    setPending(null);
 
     if (skipFirstFetch.current) {
       skipFirstFetch.current = false;
@@ -63,11 +77,8 @@ function Home () {
       setShowLoadingScreen(true);
     }, LOADING_SCREEN_DELAY_MS);
 
-    let endpoint = page === undefined
-      ? `${API_URL}/api/articles/home`
-      : `${API_URL}/api/articles/${page}`;
     axios
-      .get(endpoint)
+      .get(articlesEndpoint(page))
       .then((response) => {
         setData(response.data.articles || []);
       })
@@ -84,17 +95,81 @@ function Home () {
     return () => clearTimeout(loadingScreenTimer);
   }, [page]);
 
+  // Checks every couple of minutes while the tab is visible, and right away
+  // when the reader comes back to it. A hidden tab doesn't poll at all.
+  useEffect(() => {
+    if (isLoading) return undefined;
+
+    let cancelled = false;
+    let lastChecked = Date.now();
+
+    const check = () => {
+      if (document.visibilityState !== 'visible') return;
+      lastChecked = Date.now();
+      axios
+        .get(articlesEndpoint(page))
+        .then((response) => {
+          if (cancelled) return;
+          const fresh = response.data.articles || [];
+          if (fresh.length === 0) return;
+          const shown = new Set(data.map((article) => article.url));
+          const count = fresh.filter((article) => !shown.has(article.url)).length;
+          if (count > 0) {
+            setPending({ articles: fresh, count });
+          } else {
+            // Same stories - update retitles and the "time ago" labels in
+            // place, since nothing moves.
+            setData(fresh);
+          }
+        })
+        .catch(() => {
+          // A missed check just waits for the next one.
+        });
+    };
+
+    const timer = setInterval(check, REFRESH_INTERVAL_MS);
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible' && Date.now() - lastChecked > REFRESH_INTERVAL_MS / 2) check();
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
+  }, [page, isLoading, data]);
+
+  function showNewHeadlines() {
+    setData(pending.articles);
+    setPending(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Always rendered so screen readers announce the button when it appears.
+  const newHeadlines = (
+    <div className="new-headlines" aria-live="polite">
+      {pending && (
+        <button type="button" className="new-headlines-button" onClick={showNewHeadlines}>
+          <span aria-hidden="true">&uarr;</span>
+          {pending.count} new headline{pending.count === 1 ? '' : 's'}
+        </button>
+      )}
+    </div>
+  );
+
     if (isLoading) {
       return showLoadingScreen ? <LoadingScreen /> : null;
     }
     if (data) {
       if (page === 'finance') {
-        return (<Finance financeArticle={data} currentPage={sectionTitle}/>)}
+        return (<>{newHeadlines}<Finance financeArticle={data} currentPage={sectionTitle}/></>)}
       if (page === 'sports') {
-        return (<Sports sportsArticle={data} currentPage={sectionTitle} />)}
+        return (<>{newHeadlines}<Sports sportsArticle={data} currentPage={sectionTitle} /></>)}
       else {
         return (
         <div className="container home-container pt-1">
+          {newHeadlines}
           <Helmet>
             <title>{pageTitle}</title>
             <meta name="description" content={meta.description} />

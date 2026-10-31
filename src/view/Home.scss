@@ -41,6 +41,48 @@ div.container {
 
 
 
+// "N new headlines" - floats over the top of the page, since the reader may
+// be scrolled anywhere in the feed when fresher stories arrive (Home.js).
+// Same solid text-on-background pairing as an active search chip, so it
+// reads in both themes.
+.new-headlines-button {
+    position: fixed;
+    top: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1030;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1.05rem;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--text);
+    color: var(--bg);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0 6px 18px rgba(19, 60, 85, 0.25);
+    cursor: pointer;
+    animation: new-headlines-in 0.2s ease-out;
+
+    &:hover {
+        opacity: 0.88;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+}
+
+@keyframes new-headlines-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -0.5rem);
+    }
+}
+
 @media screen and (max-width: 576px) {
     .home-container {
         padding-bottom: 124px; /* Still clears the fixed bottom nav */

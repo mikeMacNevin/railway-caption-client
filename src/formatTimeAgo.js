@@ -4,15 +4,13 @@
 // returns articles from the last 48 hours (see server/routes/articles.js),
 // so that branch mostly exists for correctness, not because it fires.
 //
-// The scraper runs once per hour (server/scrapeWorker.js), so a whole batch
-// of articles lands with nearly identical created_at values. Showing exact
-// minutes ("17m ago") on a bunch of simultaneous articles just exposes that
-// batching and implies a precision the data doesn't have - nothing under one
-// scrape cycle is meaningfully "more" or "less" recent. So everything inside
-// the current cycle collapses to a single "Just now", and hourly buckets
-// only start once we're past it. Keep this in sync with the cron schedule
-// in server/scrapeWorker.js if that cadence ever changes.
-const SCRAPE_INTERVAL_MINUTES = 60;
+// created_at is when the scraper first saw a headline (server/db/
+// saveToDatabase.js). The Front Page is scraped every 10 minutes, so that's
+// as precise as the times get - anything inside one cycle is just "Just now",
+// and minutes after that count in whole cycles ("20m ago") rather than
+// implying a precision the data doesn't have. Keep this in sync with
+// SCRAPE_INTERVAL_MINUTES in server/scrapeWorker.js.
+const SCRAPE_INTERVAL_MINUTES = 10;
 
 export function formatTimeAgo(dateInput) {
     const date = new Date(dateInput);
@@ -22,6 +20,7 @@ export function formatTimeAgo(dateInput) {
     const minutes = Math.floor(seconds / 60);
 
     if (minutes < SCRAPE_INTERVAL_MINUTES) return 'Just now';
+    if (minutes < 60) return `${Math.floor(minutes / SCRAPE_INTERVAL_MINUTES) * SCRAPE_INTERVAL_MINUTES}m ago`;
 
     const hours = Math.floor(minutes / 60);
     if (hours < 24) return `${hours}h ago`;
