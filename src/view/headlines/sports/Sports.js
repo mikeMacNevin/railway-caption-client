@@ -24,7 +24,6 @@ const Sports = ({sportsArticle, currentPage}) => {
     return (
         <div className="container home-container d-flex flex-column pt-1">
             <h2 className="current-page">{currentPage}</h2>
-            <CategoryOverview page="sports" />
 
             <div className="container d-flex flex-row justify-content-end align-items-center px-0">
                 {/* Button Group */}
@@ -55,7 +54,8 @@ const Sports = ({sportsArticle, currentPage}) => {
             </div>
           )}
           {activeTab !== 'scores' && (
-         <div className="container home-container pt-1 pb-5">
+         <div className="summary-layout pt-1 pb-5">
+        <CategoryOverview page="sports" />
         {sportsArticle.length === 0 ? (
           <EmptyState />
         ) : (

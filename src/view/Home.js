@@ -138,7 +138,8 @@ function Home () {
               <h2 className="current-page">{sectionTitle}</h2>
             </div>
           )}
-          {page && <CategoryOverview page={page} />}
+          <div className="summary-layout">
+            <CategoryOverview page={page} />
 
             {data.length === 0 ? (
               <EmptyState />
@@ -149,6 +150,7 @@ function Home () {
                 ))}
               </div>
             )}
+          </div>
           </div>
           )
         }

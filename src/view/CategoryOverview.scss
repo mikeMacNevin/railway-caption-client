@@ -1,5 +1,6 @@
-// The daily overview box above a category page's headlines. Same 680px
-// column as .headline-feed so its edges line up with the list below it.
+// The daily overview box above a page's headlines (beside them on desktop -
+// see .summary-layout below). Same 680px column as .headline-feed so its
+// edges line up with the list below it.
 .category-overview {
   max-width: 680px;
   margin: 0 auto 1.25rem;
@@ -56,6 +57,119 @@
 
   a {
     color: var(--accent);
+  }
+}
+
+// Collapsed (the default): just the headline and the first two lines of the
+// first paragraph. The rest stays in the DOM - crawlers and the server-
+// rendered HTML get the full text - and "Read more" reveals it.
+.category-overview:not(.expanded) {
+  .category-overview-paragraph + .category-overview-paragraph,
+  .category-overview-sources,
+  .category-overview-more {
+    display: none;
+  }
+
+  .category-overview-paragraph {
+    margin-bottom: 0.35rem;
+  }
+
+  .category-overview-paragraph > p:first-child {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+}
+
+.category-overview-toggle,
+.category-overview-more {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.category-overview-toggle {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    margin-left: 0.4em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-0.15em) rotate(45deg);
+    transition: transform 0.15s ease;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.category-overview.expanded .category-overview-toggle::after {
+  transform: translateY(0.05em) rotate(225deg);
+}
+
+.category-overview-more {
+  display: inline-block;
+  margin: 0 0 0.6rem;
+}
+
+// Desktop: overview on the left, headlines on the right. Only when there
+// actually is an overview - without one the feed stays a single centered
+// column, exactly as before.
+@media (min-width: 992px) {
+  .summary-layout:has(> .category-overview) {
+    display: grid;
+    grid-template-columns: minmax(300px, 2fr) minmax(0, 3fr);
+    gap: 2rem;
+    align-items: start;
+
+    > .category-overview {
+      max-width: none;
+      margin: 0;
+    }
+
+    // The collapsed box stays in view while the (much longer) headline list
+    // scrolls past. Expanded it can be taller than the screen, so it just
+    // scrolls with the page.
+    > .category-overview:not(.expanded) {
+      position: sticky;
+      top: 1rem;
+    }
+
+    > .headline-feed,
+    > .empty-state {
+      max-width: none;
+      margin: 0;
+    }
+
+    // Finance/Sports lay their headlines out two-up; beside the overview
+    // there's only room for one.
+    > .row > * {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+  }
+
+  // The section title normally matches the 680px feed; with the two-column
+  // layout it spans both.
+  .home-container:has(> .summary-layout > .category-overview) > .container-fluid > h2.current-page {
+    max-width: none;
   }
 }
 

@@ -16,7 +16,6 @@ const Finance = ({financeArticle, currentPage}) => {
     return (
         <div className="container home-container d-flex flex-column  pt-1">
             <h2 className="current-page">{currentPage}</h2>
-            <CategoryOverview page="finance" />
 
             <div className="container d-flex flex-row justify-content-end align-items-center px-0">
                 {/* Button Group */}
@@ -43,7 +42,10 @@ const Finance = ({financeArticle, currentPage}) => {
               <TradingViewWidget />
             </div>
           ) : (
-               <div className="container home-container pt-1 pb-5">
+               // The overview belongs to the News tab only - Markets leads
+               // with the chart instead of pushing it below a block of text.
+               <div className="summary-layout pt-1 pb-5">
+                <CategoryOverview page="finance" />
                 {financeArticle.length === 0 ? (
                   <EmptyState />
                 ) : (

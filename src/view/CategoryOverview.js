@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./CategoryOverview.scss";
@@ -19,6 +20,18 @@ const LABELS = {
   science: "science",
 };
 
+// The Front Page has no category of its own - it shows the site-wide daily
+// briefing instead, which comes back in the same headline + paragraphs shape.
+const HOME = "home";
+
+function kicker(page) {
+  return page === HOME ? "Today's briefing" : `The day in ${LABELS[page]} news`;
+}
+
+function endpoint(page) {
+  return page === HOME ? "/api/summary" : `/api/summary/category/${page}`;
+}
+
 function formatDate(isoDate) {
   return new Date(`${isoDate}T12:00:00Z`).toLocaleDateString("en-US", {
     month: "short",
@@ -37,23 +50,26 @@ function takePreloaded(page) {
   return pre;
 }
 
-// The daily written overview above a category page's headlines. Renders
-// nothing when there isn't a recent one - the page is then just headlines,
-// exactly as before.
-function CategoryOverview({ page }) {
+// The daily written overview beside (desktop) or above (mobile) a page's
+// headlines. Starts collapsed to the headline and the first couple of lines,
+// with "Read more" for the rest. Renders nothing when there isn't a recent
+// one - the page is then just headlines, exactly as before.
+function CategoryOverview({ page = HOME }) {
   const [overview, setOverview] = useState(() => takePreloaded(page));
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    if (!LABELS[page]) return undefined;
+    setExpanded(false);
+    if (page !== HOME && !LABELS[page]) return undefined;
     if (overview && overview.page === page) return undefined;
 
     let cancelled = false;
     setOverview(null);
     const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
     axios
-      .get(`${API_URL}/api/summary/category/${page}`)
+      .get(`${API_URL}${endpoint(page)}`)
       .then((response) => {
-        if (!cancelled) setOverview(response.data);
+        if (!cancelled) setOverview({ ...response.data, page });
       })
       .catch(() => {
         // 404 just means no overview yet - nothing to show.
@@ -64,30 +80,49 @@ function CategoryOverview({ page }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
-  if (!LABELS[page] || !overview || overview.page !== page) return null;
+  if (!overview || overview.page !== page) return null;
 
   return (
-    <section className="category-overview" aria-label={`The day in ${LABELS[page]} news`}>
+    <section
+      className={`category-overview${expanded ? " expanded" : ""}`}
+      aria-label={kicker(page)}
+    >
       <p className="category-overview-kicker">
-        The day in {LABELS[page]} news · {formatDate(overview.date)}
+        {kicker(page)} · {formatDate(overview.date)}
       </p>
       <h2 className="category-overview-headline">{overview.headline}</h2>
-      {overview.paragraphs.map((paragraph, i) => (
-        <div className="category-overview-paragraph" key={i}>
-          <p>{paragraph.text}</p>
-          <p className="category-overview-sources">
-            Sources:{" "}
-            {paragraph.articles.map((article, j) => (
-              <span key={article.url}>
-                {j > 0 && ", "}
-                <a href={article.url} target="_blank" rel="noopener noreferrer">
-                  {article.source}
-                </a>
-              </span>
-            ))}
-          </p>
-        </div>
-      ))}
+      <div className="category-overview-body" id="category-overview-body">
+        {overview.paragraphs.map((paragraph, i) => (
+          <div className="category-overview-paragraph" key={i}>
+            <p>{paragraph.text}</p>
+            <p className="category-overview-sources">
+              Sources:{" "}
+              {paragraph.articles.map((article, j) => (
+                <span key={article.url}>
+                  {j > 0 && ", "}
+                  <a href={article.url} target="_blank" rel="noopener noreferrer">
+                    {article.source}
+                  </a>
+                </span>
+              ))}
+            </p>
+          </div>
+        ))}
+        {page === HOME && (
+          <Link className="category-overview-more" to="/briefing">
+            Open the full briefing
+          </Link>
+        )}
+      </div>
+      <button
+        type="button"
+        className="category-overview-toggle"
+        onClick={() => setExpanded((prev) => !prev)}
+        aria-expanded={expanded}
+        aria-controls="category-overview-body"
+      >
+        {expanded ? "Show less" : "Read more"}
+      </button>
     </section>
   );
 }

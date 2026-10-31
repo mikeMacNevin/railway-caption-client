@@ -201,7 +201,9 @@
     .site-navbar {
         grid-template-columns: 1fr;
         justify-items: center;
-        gap: 0;
+        // Room between the links and the search box beneath them - without
+        // it an active link's underline sits right on the search border.
+        gap: 0.75rem 0;
         padding-bottom: 0.7rem;
     }
 

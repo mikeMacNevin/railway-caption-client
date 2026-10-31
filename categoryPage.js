@@ -69,7 +69,11 @@ function renderOverview(page, overview) {
 
   return `<section class="category-overview" aria-label="The day in ${escapeHtml(LABELS[page])} news">` +
     `<p class="category-overview-kicker">The day in ${escapeHtml(LABELS[page])} news · ${formatDate(overview.date)}</p>` +
-    `<h2 class="category-overview-headline">${escapeHtml(overview.headline)}</h2>${paragraphs}</section>`;
+    `<h2 class="category-overview-headline">${escapeHtml(overview.headline)}</h2>` +
+    `<div class="category-overview-body" id="category-overview-body">${paragraphs}</div>` +
+    // Inert until React takes over - it's there so the collapsed first paint
+    // looks the same as the live page.
+    `<button type="button" class="category-overview-toggle" aria-expanded="false" aria-controls="category-overview-body">Read more</button></section>`;
 }
 
 function renderHeadline(article) {
@@ -83,8 +87,9 @@ function renderCategoryHtml({ page, overview, articles }) {
   const title = (PAGE_META[page] || {}).title || '';
   return `<div class="container home-container pt-1">` +
     `<div class="container-fluid px-0"><h2 class="current-page">${escapeHtml(title)}</h2></div>` +
+    `<div class="summary-layout">` +
     (overview ? renderOverview(page, overview) : '') +
-    `<div class="headline-feed">${articles.map(renderHeadline).join('')}</div></div>`;
+    `<div class="headline-feed">${articles.map(renderHeadline).join('')}</div></div></div>`;
 }
 
 function renderCategoryPreload({ page, overview, articles }) {
