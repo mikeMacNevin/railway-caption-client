@@ -40,6 +40,13 @@ function formatDate(isoDate) {
   });
 }
 
+// Summaries start open on desktop, where they sit beside the headlines, and
+// collapsed on smaller screens, where they'd push the headlines down. Keep in
+// step with the desktop breakpoint in CategoryOverview.scss.
+function startsExpanded() {
+  return window.matchMedia("(min-width: 992px)").matches;
+}
+
 // server.js writes the overview into the page's initial HTML for crawlers
 // and leaves a copy in window.__CATEGORY_OVERVIEW__, so the first render can
 // use it instead of fetching again (and the text doesn't flash out and back).
@@ -51,15 +58,15 @@ function takePreloaded(page) {
 }
 
 // The daily written overview beside (desktop) or above (mobile) a page's
-// headlines. Starts collapsed to the headline and the first couple of lines,
-// with "Read more" for the rest. Renders nothing when there isn't a recent
-// one - the page is then just headlines, exactly as before.
+// headlines. Below desktop it starts collapsed to the headline and the first
+// couple of lines, with "Read more" for the rest. Renders nothing when there
+// isn't a recent one - the page is then just headlines, exactly as before.
 function CategoryOverview({ page = HOME }) {
   const [overview, setOverview] = useState(() => takePreloaded(page));
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(startsExpanded);
 
   useEffect(() => {
-    setExpanded(false);
+    setExpanded(startsExpanded());
     if (page !== HOME && !LABELS[page]) return undefined;
     if (overview && overview.page === page) return undefined;
 

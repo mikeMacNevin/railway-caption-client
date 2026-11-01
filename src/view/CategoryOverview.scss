@@ -60,10 +60,11 @@
   }
 }
 
-// Collapsed (the default): just the headline and the first two lines of the
-// first paragraph. The rest stays in the DOM - crawlers and the server-
-// rendered HTML get the full text - and "Read more" reveals it.
-.category-overview:not(.expanded) {
+// Collapsed: just the headline and the first two lines of the first
+// paragraph. The rest stays in the DOM - crawlers and the server-rendered
+// HTML get the full text - and "Read more" reveals it. The default below
+// desktop; CategoryOverview.js starts it open on desktop.
+@mixin collapsed-overview {
   .category-overview-paragraph + .category-overview-paragraph,
   .category-overview-sources,
   .category-overview-more {
@@ -80,6 +81,26 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-bottom: 0;
+  }
+}
+
+.category-overview:not(.expanded):not(.server-rendered) {
+  @include collapsed-overview;
+}
+
+// The server's HTML (categoryPage.js) can't know the screen width, so its
+// first paint follows the same rule with media queries until React takes
+// over. Its button does nothing yet, and "Read more" under the full text
+// would be wrong anyway, so desktop hides it.
+@media (max-width: 991px) {
+  .category-overview.server-rendered {
+    @include collapsed-overview;
+  }
+}
+
+@media (min-width: 992px) {
+  .category-overview.server-rendered .category-overview-toggle {
+    display: none;
   }
 }
 
@@ -144,10 +165,10 @@
       margin: 0;
     }
 
-    // The collapsed box stays in view while the (much longer) headline list
-    // scrolls past. Expanded it can be taller than the screen, so it just
-    // scrolls with the page.
-    > .category-overview:not(.expanded) {
+    // Collapsed with "Show less", the box stays in view while the (much
+    // longer) headline list scrolls past. Expanded it can be taller than the
+    // screen, so it just scrolls with the page.
+    > .category-overview:not(.expanded):not(.server-rendered) {
       position: sticky;
       top: 1rem;
     }

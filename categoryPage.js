@@ -67,12 +67,13 @@ function renderOverview(page, overview) {
       `<p class="category-overview-sources">Sources: ${sources}</p></div>`;
   }).join('');
 
-  return `<section class="category-overview" aria-label="The day in ${escapeHtml(LABELS[page])} news">` +
+  return `<section class="category-overview server-rendered" aria-label="The day in ${escapeHtml(LABELS[page])} news">` +
     `<p class="category-overview-kicker">The day in ${escapeHtml(LABELS[page])} news · ${formatDate(overview.date)}</p>` +
     `<h2 class="category-overview-headline">${escapeHtml(overview.headline)}</h2>` +
     `<div class="category-overview-body" id="category-overview-body">${paragraphs}</div>` +
-    // Inert until React takes over - it's there so the collapsed first paint
-    // looks the same as the live page.
+    // Inert until React takes over - it's there so the first paint looks the
+    // same as the live page. CategoryOverview.scss uses .server-rendered to
+    // collapse this below desktop and leave it open on desktop.
     `<button type="button" class="category-overview-toggle" aria-expanded="false" aria-controls="category-overview-body">Read more</button></section>`;
 }
 
